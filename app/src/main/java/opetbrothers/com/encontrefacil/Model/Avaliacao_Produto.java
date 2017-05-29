@@ -1,48 +1,67 @@
 package opetbrothers.com.encontrefacil.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Lucas Galvao Nunes on 23/04/2017.
  */
 
-public class Avaliacao_Produto {
+public class Avaliacao_Produto implements Serializable {
 
-    private int id_avaliacao_produto;
-    private Produto fk_produto;
-    private Usuario fk_usuario;
+    private int id_Avaliacao_Produto;
+    private Produto fk_Produto;
+    private PessoaFisica fk_Pessoa_Fisica;
     private String comentario;
-
     private int nota;
 
+    public Avaliacao_Produto() {
+    }
 
-    public int getId_avaliacao_produto() {
-        return id_avaliacao_produto;
-    }
-    public void setId_avaliacao_produto(int id_avaliacao_produto) {
-        this.id_avaliacao_produto = id_avaliacao_produto;
-    }
-    public Produto getFk_produto() {
-        return fk_produto;
-    }
-    public void setFk_produto(Produto fk_produto) {
-        this.fk_produto = fk_produto;
-    }
-    public Usuario getFk_usuario() {
-        return fk_usuario;
-    }
-    public void setFk_usuario(Usuario fk_usuario) {
-        this.fk_usuario = fk_usuario;
-    }
-    public String getComentario() {
-        return comentario;
-    }
-    public void setComentario(String comentario) {
+    public Avaliacao_Produto(int id_Avaliacao_Produto, Produto fk_Produto, PessoaFisica fk_Pessoa_Fisica, String comentario, int nota) {
+        this.id_Avaliacao_Produto = id_Avaliacao_Produto;
+        this.fk_Produto = fk_Produto;
+        this.fk_Pessoa_Fisica = fk_Pessoa_Fisica;
         this.comentario = comentario;
-    }
-    public int getNota() {
-        return nota;
-    }
-    public void setNota(int nota) {
         this.nota = nota;
     }
 
+    public int getId_Avaliacao_Produto() {
+        return id_Avaliacao_Produto;
+    }
+
+    public void setId_Avaliacao_Produto(int id_Avaliacao_Produto) {
+        this.id_Avaliacao_Produto = id_Avaliacao_Produto;
+    }
+
+    public Produto getFk_Produto() {
+        return fk_Produto;
+    }
+
+    public void setFk_Produto(Produto fk_Produto) {
+        this.fk_Produto = fk_Produto;
+    }
+
+    public PessoaFisica getFk_Pessoa_Fisica() {
+        return fk_Pessoa_Fisica;
+    }
+
+    public void setFk_Pessoa_Fisica(PessoaFisica fk_Pessoa_Fisica) {
+        this.fk_Pessoa_Fisica = fk_Pessoa_Fisica;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public int getNota() {
+        return nota;
+    }
+
+    public void setNota(int nota) {
+        this.nota = nota;
+    }
 }

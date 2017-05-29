@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/filtro_pessoaFisica"
+        android:icon="@drawable/ic_menu_gallery"
+        android:title="@string/filtro_name"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/lojas_Menor50KM"
+                android:icon="?android:attr/actionModePasteDrawable"
+                android:title="Menor que 50KM" />
+            <item
+                android:id="@+id/lojas_Maior50KM"
+                android:icon="?android:attr/actionModePasteDrawable"
+                android:title="maior que 50KM" />
+        </menu>
+        </item>
+</menu>

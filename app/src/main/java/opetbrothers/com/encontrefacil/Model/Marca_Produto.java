@@ -1,19 +1,29 @@
 package opetbrothers.com.encontrefacil.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Lucas Galvao Nunes on 23/04/2017.
  */
 
-public class Marca_Produto {
-    private int id_marca_produto;
+public class Marca_Produto implements Serializable {
+
+    private int id_Marca_Produto;
     private String nome;
 
-    public int getId_marca_produto() {
-        return id_marca_produto;
+    public Marca_Produto() {
     }
 
-    public void setId_marca_produto(int id_marca_produto) {
-        this.id_marca_produto = id_marca_produto;
+    public Marca_Produto(String nome) {
+        this.nome = nome;
+    }
+
+    public int getId_Marca_Produto() {
+        return id_Marca_Produto;
+    }
+
+    public void setId_Marca_Produto(int id_Marca_Produto) {
+        this.id_Marca_Produto = id_Marca_Produto;
     }
 
     public String getNome() {

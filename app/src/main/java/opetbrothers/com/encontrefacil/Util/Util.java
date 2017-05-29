@@ -1,5 +1,8 @@
 package opetbrothers.com.encontrefacil.Util;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,6 +11,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.Writer;
+
+import opetbrothers.com.encontrefacil.Model.PessoaJuridica;
 
 /**
  * Created by Rafael on 10/04/2017.
@@ -36,5 +41,37 @@ public class Util {
 
         return localString;
     }
+
+    /**
+     * Metodo responsavel por armazenar o json do usuario logado no aplicativo.
+     * @param pNomePreferences Nome do arquivo a ser salvo
+     * @param pJson Json a ser salvo
+     * @param pActivity Activity que esta utilizando este metodo
+     */
+    public static void SalvarDados(String pNomePreferences, String pJson, Activity pActivity)
+    {
+        SharedPreferences pref;
+        pref = pActivity.getSharedPreferences(pNomePreferences, pActivity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("json",pJson);
+        editor.commit();
+    }
+
+    public static String RecuperarUsuario(String pNomePreferences,Activity pActivity)
+    {
+        SharedPreferences shared = pActivity.getSharedPreferences(pNomePreferences,pActivity.MODE_PRIVATE);
+        String string_temp = shared.getString("json","");
+        return string_temp;
+    }
+
+
+
+
+
+
+
+
+
+
 
 }

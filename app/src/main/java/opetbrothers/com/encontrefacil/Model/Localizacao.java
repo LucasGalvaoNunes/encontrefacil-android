@@ -1,21 +1,31 @@
 package opetbrothers.com.encontrefacil.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Lucas Galvao Nunes on 23/04/2017.
  */
 
-public class Localizacao {
+public class Localizacao implements Serializable {
 
-    private int id_localizacao;
+    private int id_Localizacao;
     private String longitude;
     private String latitude;
 
-    public int getId_localizacao() {
-        return id_localizacao;
+    public Localizacao() {
     }
 
-    public void setId_localizacao(int id_localizacao) {
-        this.id_localizacao = id_localizacao;
+    public Localizacao(String longitude, String latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
+    public int getId_Localizacao() {
+        return id_Localizacao;
+    }
+
+    public void setId_Localizacao(int id_Localizacao) {
+        this.id_Localizacao = id_Localizacao;
     }
 
     public String getLongitude() {
@@ -33,5 +43,4 @@ public class Localizacao {
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
-
 }

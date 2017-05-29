@@ -17,7 +17,7 @@ import java.net.URL;
 
 public class HttpMetods {
 
-    public final static String URL = "http://104.197.85.140/EncontreFacilWs/rest/";
+    public final static String URL = "http://35.184.19.77/EncontreFacilWs/rest/";
     public static int serverResponseCode;
     public static String serverResponseMessage;
 
@@ -101,6 +101,7 @@ public class HttpMetods {
             urlConnection.setRequestMethod("PUT");
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf8");
 
             DataOutputStream outputStream = new DataOutputStream(urlConnection.getOutputStream());
 

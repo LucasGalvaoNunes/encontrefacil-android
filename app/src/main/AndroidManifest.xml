@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,10 +23,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".Activity.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,11 +30,96 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.CadastrarActivity" />
         <activity
-            android:name=".Activity.TesteActivity"
-            android:label="@string/title_activity_teste"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".Activity.CadastroPessoaJuridicaActivity"
+            android:parentActivityName=".Activity.LoginPessoaJuridicaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.LoginPessoaJuridicaActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.LoginPessoaFisicaActivity"
+            android:parentActivityName=".Activity.LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.LoginPessoaJuridicaActivity"
+            android:parentActivityName=".Activity.LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.LoginActivity" />
+        </activity>
+        <activity android:name=".Activity.VerificacaoEmailActivity" />
+        <activity
+            android:name=".Activity.MainPessoaJuridicaActivity"
+            android:label="@string/title_activity_main_pessoa_juridica"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- Activity`s Pessoa Fisica -->
+        <activity
+            android:name=".Activity.MainPessoaFisicaActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.MeusProdutosPessoaFisicaActivity"
+            android:parentActivityName=".Activity.MainPessoaFisicaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainPessoaFisicaActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.ProdutosPessoaFisicaActivity"
+            android:parentActivityName=".Activity.MainPessoaFisicaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainPessoaFisicaActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.MeusDadosPessoaFisicaActivity"
+            android:parentActivityName=".Activity.MainPessoaFisicaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainPessoaFisicaActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.CategoriasProdutosPessoaFisicaActivity"
+            android:parentActivityName=".Activity.MainPessoaFisicaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainPessoaFisicaActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.MapsLojasPertoActivity"
+            android:label="@string/title_activity_maps_lojas_perto"
+            android:parentActivityName=".Activity.MainPessoaFisicaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainPessoaFisicaActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.InfProdPessoaFisicaActivity"
+            android:parentActivityName=".Activity.MainPessoaFisicaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainPessoaFisicaActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.CadastroProdutoPessoaJuridicaActivity"
+            android:parentActivityName=".Activity.MainPessoaJuridicaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainPessoaJuridicaActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.MeusProdutosPessoaJuridicaActivity"
+            android:parentActivityName=".Activity.MainPessoaJuridicaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainPessoaJuridicaActivity" />
+        </activity>
+        <activity android:name=".Activity.MeusDadosPessoaJuridicaActivity"></activity>
     </application>
 
 </manifest>

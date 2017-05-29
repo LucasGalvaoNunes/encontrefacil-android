@@ -1,41 +1,60 @@
 package opetbrothers.com.encontrefacil.Model;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
+
 /**
  * Created by Lucas Galvao Nunes on 23/04/2017.
  */
 
-public class Produto {
-    private int id_produto;
-    private Marca_Produto fk_marca_produto;
-    private Categoria_Produto fk_categoria_produto;
-    private Loja fk_loja;
+public class Produto implements Serializable{
+
+    private int id_Produto;
+    private Categoria_Produto fk_Categoria_Produto;
+    private Marca_Produto fk_Marca_Produto;
+    private PessoaJuridica fk_Pessoa_Juridica;
     private String nome;
     private String descricao;
     private String preco;
-    private byte[] foto;
+    private String foto;
+    private Timestamp data_Publicacao;
 
-    public int getId_produto() {
-        return id_produto;
+    public Produto(Categoria_Produto fk_Categoria_Produto, Marca_Produto fk_Marca_Produto,PessoaJuridica fk_Pessoa_Juridica, String nome, String descricao, String preco, String foto, Timestamp data_Publicacao) {
+        this.fk_Categoria_Produto = fk_Categoria_Produto;
+        this.fk_Marca_Produto = fk_Marca_Produto;
+        this.fk_Pessoa_Juridica = fk_Pessoa_Juridica;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.foto = foto;
+        this.data_Publicacao = data_Publicacao;
     }
 
-    public void setId_produto(int id_produto) {
-        this.id_produto = id_produto;
+    public Produto() {
     }
 
-    public Marca_Produto getFk_marca_produto() {
-        return fk_marca_produto;
+    public int getId_Produto() {
+        return id_Produto;
     }
 
-    public void setFk_marca_produto(Marca_Produto fk_marca_produto) {
-        this.fk_marca_produto = fk_marca_produto;
+    public void setId_Produto(int id_Produto) {
+        this.id_Produto = id_Produto;
     }
 
-    public Categoria_Produto getFk_categoria_produto() {
-        return fk_categoria_produto;
+    public Categoria_Produto getFk_Categoria_Produto() {
+        return fk_Categoria_Produto;
     }
 
-    public void setFk_categoria_produto(Categoria_Produto fk_categoria_produto) {
-        this.fk_categoria_produto = fk_categoria_produto;
+    public void setFk_Categoria_Produto(Categoria_Produto fk_Categoria_Produto) {
+        this.fk_Categoria_Produto = fk_Categoria_Produto;
+    }
+
+    public Marca_Produto getFk_Marca_Produto() {
+        return fk_Marca_Produto;
+    }
+
+    public void setFk_Marca_Produto(Marca_Produto fk_Marca_Produto) {
+        this.fk_Marca_Produto = fk_Marca_Produto;
     }
 
     public String getNome() {
@@ -62,19 +81,27 @@ public class Produto {
         this.preco = preco;
     }
 
-    public byte[] getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
-    public Loja getFk_loja() {
-        return fk_loja;
+    public Timestamp getData_Publicacao() {
+        return data_Publicacao;
     }
 
-    public void setFk_loja(Loja fk_loja) {
-        this.fk_loja = fk_loja;
+    public void setData_Publicacao(Timestamp data_Publicacao) {
+        this.data_Publicacao = data_Publicacao;
+    }
+
+    public PessoaJuridica getFk_Pessoa_Juridica() {
+        return fk_Pessoa_Juridica;
+    }
+
+    public void setFk_Pessoa_Juridica(PessoaJuridica fk_Pessoa_Juridica) {
+        this.fk_Pessoa_Juridica = fk_Pessoa_Juridica;
     }
 }

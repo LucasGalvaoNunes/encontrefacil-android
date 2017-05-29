@@ -2,28 +2,20 @@ package opetbrothers.com.encontrefacil.Activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
-import opetbrothers.com.encontrefacil.Model.Usuario;
+import opetbrothers.com.encontrefacil.Model.PessoaJuridica;
 import opetbrothers.com.encontrefacil.R;
-import opetbrothers.com.encontrefacil.Util.HttpMetods;
 import opetbrothers.com.encontrefacil.Util.PermissionUtils;
+import opetbrothers.com.encontrefacil.Util.Util;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
 
     static String usuario;
     static String senha;
+
+    PessoaJuridica pessoaJuridica;
 
     String[] permissoes = new String[]{
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -48,8 +42,16 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         PermissionUtils.validate(this,0, permissoes);
 
-        editUsuario = (EditText) findViewById(R.id.editEmail);
-        editSenha = (EditText) findViewById(R.id.editSenha);
+        String jsonPrefe = Util.RecuperarUsuario("pessoaJuridica", LoginActivity.this);
+        Gson gson = new Gson();
+        pessoaJuridica = gson.fromJson(jsonPrefe, PessoaJuridica.class);
+        if(pessoaJuridica != null){
+            Intent mainJuridica = new Intent(this,MainPessoaJuridicaActivity.class);
+            startActivity(mainJuridica);
+            finish();
+        }
+
+
     }
 
 
@@ -82,87 +84,84 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void Logar(View v)
+    public void ClickButtonPessoaFisica(View v)
     {
-        usuario = editUsuario.getText().toString();
-        senha = editSenha.getText().toString();
-
-        if(!usuario.isEmpty() &&  !senha.isEmpty())
-        {
-            new ConexaoWebService().execute();
-
-        }else{
-            Toast.makeText(this, "Digite seu email e senha!", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void ActivityCadastrar(View v)
-    {
-        Intent i = new Intent(LoginActivity.this, CadastrarActivity.class);
+        Intent i = new Intent(this,LoginPessoaFisicaActivity.class);
         startActivity(i);
+        finish();
     }
 
-    private class ConexaoWebService extends AsyncTask<Void, Void, String> {
-        boolean isConnected = false;
-        ProgressDialog progress;
-        @Override
-        protected void onPreExecute()
-        {
-
-            ConnectivityManager cm =
-                    (ConnectivityManager)LoginActivity.this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-            isConnected = activeNetwork != null &&
-                    activeNetwork.isConnectedOrConnecting();
-
-            if(isConnected) {
-                progress = new ProgressDialog(LoginActivity.this);
-                progress.setMessage("Efetuando o Login!");
-                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                progress.setProgress(0);
-                progress.show();
-            }
-            else{
-                Toast.makeText(LoginActivity.this, "Verifique a conexão com a internet...", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            Usuario usuarioModel = new Usuario();
-            usuarioModel.setEmail(usuario);
-            usuarioModel.setSenha(senha);
-            Gson gson = new Gson();
-            String jsonConvert = gson.toJson(usuarioModel);
-            String json = HttpMetods.POST("Usuario/Logar", jsonConvert);
-            return json;
-
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if(isConnected)
-            {
-                try{
-                    JSONObject object = new JSONObject(s);
-                    if(object.getBoolean("ok"))
-                    {
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        i.putExtra("Usuario", object.getJSONObject("usuarioEntity").getString("nome") + " " + object.getJSONObject("usuarioEntity").getString("sobrenome"));
-                        i.putExtra("Email", object.getJSONObject("usuarioEntity").getString("email"));
-                        startActivity(i);
-                    }else{
-                        Toast.makeText(LoginActivity.this,object.getString("mensagem"),Toast.LENGTH_LONG).show();
-                    }
-                }catch (Exception e)
-                {
-                    Toast.makeText(LoginActivity.this,"Não foi possivel se conectar",Toast.LENGTH_LONG).show();
-                }
-                progress.dismiss();
-            }
-
-        }
+    public void ClickButtonPessoaJuridica(View v)
+    {
+        Intent i = new Intent(this,LoginPessoaJuridicaActivity.class);
+        startActivity(i);
+        finish();
     }
+
+
+
+
+//    private class ConexaoWebService extends AsyncTask<Void, Void, String> {
+//        boolean isConnected = false;
+//        ProgressDialog progress;
+//        @Override
+//        protected void onPreExecute()
+//        {
+//
+//            ConnectivityManager cm =
+//                    (ConnectivityManager)LoginActivity.this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+//
+//            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//            isConnected = activeNetwork != null &&
+//                    activeNetwork.isConnectedOrConnecting();
+//
+//            if(isConnected) {
+//                progress = new ProgressDialog(LoginActivity.this);
+//                progress.setMessage("Efetuando o Login!");
+//                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//                progress.setProgress(0);
+//                progress.show();
+//            }
+//            else{
+//                Toast.makeText(LoginActivity.this, "Verifique a conexão com a internet...", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//
+//        @Override
+//        protected String doInBackground(Void... params) {
+//            Usuario usuarioModel = new Usuario();
+//            usuarioModel.setEmail(usuario);
+//            usuarioModel.setSenha(senha);
+//            Gson gson = new Gson();
+//            String jsonConvert = gson.toJson(usuarioModel);
+//            String json = HttpMetods.POST("Usuario/Logar", jsonConvert);
+//            return json;
+//
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            super.onPostExecute(s);
+//            if(isConnected)
+//            {
+//                try{
+//                    JSONObject object = new JSONObject(s);
+//                    if(object.getBoolean("ok"))
+//                    {
+//                        Intent i = new Intent(LoginActivity.this, MainPessoaFisicaActivity.class);
+//                        i.putExtra("Usuario", object.getJSONObject("usuarioEntity").getString("nome") + " " + object.getJSONObject("usuarioEntity").getString("sobrenome"));
+//                        i.putExtra("Email", object.getJSONObject("usuarioEntity").getString("email"));
+//                        startActivity(i);
+//                    }else{
+//                        Toast.makeText(LoginActivity.this,object.getString("mensagem"),Toast.LENGTH_LONG).show();
+//                    }
+//                }catch (Exception e)
+//                {
+//                    Toast.makeText(LoginActivity.this,"Não foi possivel se conectar",Toast.LENGTH_LONG).show();
+//                }
+//                progress.dismiss();
+//            }
+//
+//        }
+//    }
 }
