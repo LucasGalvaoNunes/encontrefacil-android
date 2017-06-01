@@ -15,4 +15,8 @@
 
     <string name="filtro_name">Filtro</string>
     <string name="title_activity_maps_lojas_perto">Map</string>
+
+    <string name="facebook_app_id">1435285413190266</string>
+
+    <string name="fb_login_protocol_scheme">fb1435285413190266</string>
 </resources>

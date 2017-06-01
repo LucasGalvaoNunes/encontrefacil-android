@@ -25,20 +25,35 @@
         android:text="Encontre Facil"
         android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/btnFacebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView9"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
-        android:fontFamily="casual"
-        android:gravity="left|center_vertical"
-        android:onClick="ClickButtonFacebook"
-        android:text="Facebook"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="25sp" />
+
+       <com.facebook.login.widget.LoginButton
+           android:id="@+id/login_button"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/textView9"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="50dp"
+           android:gravity="left|center_vertical"
+           android:text="Facebook"
+           android:textAppearance="@style/TextAppearance.AppCompat"
+           android:textSize="25sp"/>
+
+       <!--
+       <Button
+           android:id="@+id/btnFacebook"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/textView9"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="50dp"
+           android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
+           android:fontFamily="casual"
+           android:gravity="left|center_vertical"
+           android:onClick="ClickButtonFacebook"
+           android:text="Facebook"
+           android:textAppearance="@style/TextAppearance.AppCompat"
+           android:textSize="25sp" />
+           -->
 
     <TextView
         android:id="@+id/textView9"

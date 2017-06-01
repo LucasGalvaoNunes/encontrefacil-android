@@ -1,6 +1,7 @@
 package opetbrothers.com.encontrefacil.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.MapsInitializer;
 
@@ -82,6 +85,18 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Bundle extras = getIntent().getExtras();
+
+        ImageView foto;
+        TextView nome;
+
+        foto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView7);
+        nome = (TextView) navigationView.getHeaderView(0).findViewById(R.id.textViewNomePessoaFisicaLogada);
+        Uri myUri = Uri.parse(extras.getString("foto"));
+
+        nome.setText(extras.getString("nome") + " " + extras.getString("sobrenome"));
+        foto.setImageURI(myUri);
     }
     @Override
     public void onBackPressed() {
