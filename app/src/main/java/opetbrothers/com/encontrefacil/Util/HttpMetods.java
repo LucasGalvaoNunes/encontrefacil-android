@@ -17,7 +17,7 @@ import java.net.URL;
 
 public class HttpMetods {
 
-    public final static String URL = "http://localhost:8080/EncontreFacilWs/rest/";
+    public final static String URL = "http://35.184.152.136/EncontreFacilWs/rest/";
     public static int serverResponseCode;
     public static String serverResponseMessage;
 
