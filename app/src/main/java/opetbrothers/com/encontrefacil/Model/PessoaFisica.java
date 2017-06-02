@@ -12,15 +12,16 @@ public class PessoaFisica implements Serializable
     private int id_PessoaFisica;
     private Pessoa fk_Pessoa;
     private String cpf;
-
+    private String id_facebook;
 
     public PessoaFisica() {
     }
 
-    public PessoaFisica(int id_PessoaFisica, Pessoa fk_Pessoa, String cpf) {
+    public PessoaFisica(int id_PessoaFisica, Pessoa fk_Pessoa, String cpf, String id_facebook) {
         this.id_PessoaFisica = id_PessoaFisica;
         this.fk_Pessoa = fk_Pessoa;
         this.cpf = cpf;
+        this.id_facebook = id_facebook;
     }
 
     public int getId_PessoaFisica() {
@@ -45,5 +46,11 @@ public class PessoaFisica implements Serializable
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+    public String getId_facebook() {
+        return id_facebook;
+    }
+    public void setId_facebook(String id_facebook) {
+        this.id_facebook = id_facebook;
     }
 }

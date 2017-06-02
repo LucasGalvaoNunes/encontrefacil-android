@@ -5,25 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="opetbrothers.com.encontrefacil.Activity.LoginPessoaJuridicaActivity"
-    android:weightSum="1">
+    tools:context="opetbrothers.com.encontrefacil.Activity.LoginPessoaJuridicaActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_weight="0.09"
+        android:layout_weight="0.14"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="22dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+            app:srcCompat="@drawable/pessoajuridicalogo" />
 
         <TextView
             android:id="@+id/textView7"
@@ -32,43 +31,42 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView10"
             android:layout_weight="1"
-            android:fontFamily="casual"
-            android:text="Publique seus produtos e aumente sua gama de clientes"
+            android:gravity="bottom"
+            android:text="Publique seus produtos e aumente sua gama de clientes!"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="20sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textSize="25sp" />
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="17dp"
-            android:layout_weight="1"
-            android:fontFamily="casual"
-            android:text="Encontre Facil"
-            android:textAlignment="center"
-            android:textSize="30sp" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/editEmailLogin"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.09"
-        android:ems="10"
-        android:hint="Email..."
-        android:inputType="textPersonName" />
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="0.04">
 
-    <EditText
-        android:id="@+id/editSenhaLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.09"
-        android:ems="10"
-        android:hint="Senha..."
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/editEmailLogin"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:hint="Email..."
+            android:inputType="textEmailAddress"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editSenhaLogin"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:hint="Senha..."
+            android:inputType="textPassword"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -77,29 +75,22 @@
         android:weightSum="1"
         android:gravity="center">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnEntrar"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.35"
-            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
-            android:fontFamily="casual"
+            android:background="#00ff0000"
             android:onClick="LogarPessoaJuridica"
-            android:text="Entrar"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="25sp"
-            android:layout_width="wrap_content" />
+            app:srcCompat="@drawable/entrar" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnRegistrar"
-            android:layout_width="170dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.36"
-            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
-            android:fontFamily="casual"
+            android:background="#00ff0000"
             android:onClick="ActivityCadastrarPessoaJuridica"
-            android:text="Registrar-se"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="25sp" />
+            app:srcCompat="@drawable/registrar" />
     </LinearLayout>
 
 </LinearLayout>

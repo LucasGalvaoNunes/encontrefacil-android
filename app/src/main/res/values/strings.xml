@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Encontre Facil</string>
+    <string name="app_name">Encontre Fácil</string>
     <string name="title_activity_maps">Lojas Pertos</string>
     <string name="title_activity_main">Tela Principal</string>
 
@@ -17,6 +17,6 @@
     <string name="title_activity_maps_lojas_perto">Map</string>
 
     <string name="facebook_app_id">1435285413190266</string>
-
     <string name="fb_login_protocol_scheme">fb1435285413190266</string>
+
 </resources>

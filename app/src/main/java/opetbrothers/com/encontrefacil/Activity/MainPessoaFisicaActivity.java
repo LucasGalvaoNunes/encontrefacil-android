@@ -41,62 +41,9 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        List<Produto> produtos = new ArrayList<Produto>();
-        Produto  prod = new Produto();
-        prod.setNome("Tenis Adidas");
-        prod.setDescricao("Tenis da adidas preto");
-        prod.setPreco("R$:120,00");
-        produtos.add(prod);
-        prod.setNome("Tenis Nike");
-        prod.setDescricao("Tenis da Nike preto");
-        prod.setPreco("R$:120,00");
-        produtos.add(prod);
-        prod.setNome("Tenis Nike");
-        prod.setDescricao("Tenis da Nike preto");
-        prod.setPreco("R$:120,00");
-        produtos.add(prod);
-        prod.setNome("Tenis Nike");
-        prod.setDescricao("Tenis da Nike preto");
-        prod.setPreco("R$:120,00");
-        produtos.add(prod);
-        prod.setNome("Tenis Nike");
-        prod.setDescricao("Tenis da Nike preto");
-        prod.setPreco("R$:120,00");
-        produtos.add(prod);
-        prod.setNome("Tenis Nike");
-        prod.setDescricao("Tenis da Nike preto");
-        prod.setPreco("R$:120,00");
-        produtos.add(prod);
-
-
-        ListView listView = (ListView) findViewById(R.id.listProdutosMainPessoaFisica);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            //            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Produto produto = (Produto) parent.getItemAtPosition(position);
-                Bundle bundle = new Bundle();
-                //AQUI ENVIAR DADOS NECESSARIOS PARA A PROXIMA PAGINA
-                startActivity(new Intent(getApplicationContext(),InfProdPessoaFisicaActivity.class));
-            }
-        });
-        ProdutosPessoaFisicaAdapter produtosPessoaFisicaAdapter = new ProdutosPessoaFisicaAdapter(this,R.layout.list_produto_pessoa_fisica, produtos);
-        listView.setAdapter(produtosPessoaFisicaAdapter);
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Bundle extras = getIntent().getExtras();
-
-        ImageView foto;
-        TextView nome;
-
-        foto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView7);
-        nome = (TextView) navigationView.getHeaderView(0).findViewById(R.id.textViewNomePessoaFisicaLogada);
-        Uri myUri = Uri.parse(extras.getString("foto"));
-
-        nome.setText(extras.getString("nome") + " " + extras.getString("sobrenome"));
-        foto.setImageURI(myUri);
     }
     @Override
     public void onBackPressed() {
@@ -152,10 +99,6 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-
-
 
     public void BuscarProduto(View v)
     {
