@@ -22,8 +22,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 import com.google.gson.Gson;
-
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     static String usuario;
     static String senha;
 
+
     PessoaJuridica pessoaJuridica;
 
     String[] permissoes = new String[]{
@@ -62,7 +64,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         PermissionUtils.validate(this,0, permissoes);
+
         new GetPDF().execute(1);
         String jsonPrefe = Util.RecuperarUsuario("pessoaJuridica", LoginActivity.this);
         Gson gson = new Gson();
@@ -71,7 +76,12 @@ public class LoginActivity extends AppCompatActivity {
             Intent mainJuridica = new Intent(this,MainPessoaJuridicaActivity.class);
             startActivity(mainJuridica);
             finish();
+        }else if (AccessToken.getCurrentAccessToken() != null){
+            Intent mainFisica = new Intent(this,MainPessoaFisicaActivity.class);
+            startActivity(mainFisica);
+            finish();
         }
+
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     getPackageName(),
@@ -188,7 +198,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,"Não foi possivel se conectar",Toast.LENGTH_LONG).show();
                 }
                 progress.dismiss();
-
 
             }
 

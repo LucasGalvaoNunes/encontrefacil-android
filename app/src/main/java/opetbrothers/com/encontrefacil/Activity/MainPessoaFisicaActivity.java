@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.MapsInitializer;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_pesssoa_fisica);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         LoginActivity login = new LoginActivity();
@@ -107,6 +110,7 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
 
     public void Sair(View v)
     {
+        LoginManager.getInstance().logOut();
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

@@ -59,8 +59,8 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login_pessoa_fisica);
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -89,7 +89,7 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                                     long id = object.getLong("id");
                                     pessoaFisica.setId_facebook(String.valueOf(id));
                                     JSONObject picture = new JSONObject(object.getString("picture"));
-                                    pessoa.setFoto(picture.getJSONObject("data").getString("url"));
+                                     pessoa.setFoto(picture.getJSONObject("data").getString("url"));
                                     pessoaFisica.setFk_Pessoa(pessoa);
                                     new SalvarDados().execute(pessoaFisica);
                                 } catch (JSONException e) {
@@ -118,9 +118,9 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
     public void toActivityMain(Pessoa pessoaFisica){
 
         Intent i = new Intent(this,MainPessoaFisicaActivity.class);
-        i.putExtra("nome", pessoaFisica.getNome());
-        i.putExtra("sobrenome", pessoaFisica.getSobrenome());
-        i.putExtra("foto", pessoaFisica.getFoto().toString());
+        i.putExtra("nome", pessoa.getNome());
+        i.putExtra("sobrenome", pessoa.getSobrenome());
+        i.putExtra("foto", pessoa.getFoto().toString());
         startActivity(i);
         finish();
     }
