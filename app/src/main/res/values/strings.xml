@@ -18,4 +18,6 @@
     <string name="facebook_app_id">1435285413190266</string>
     <string name="fb_login_protocol_scheme">fb1435285413190266</string>
 
+    <!-- GOOGLE VISION API KEY -->
+    <string name="google_vision_api">AIzaSyBfN_n8Tmrs4-JdgZWgF3qWhj2SHgr_tb0</string>
 </resources>
