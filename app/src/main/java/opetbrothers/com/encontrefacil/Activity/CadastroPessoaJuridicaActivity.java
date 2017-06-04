@@ -344,6 +344,17 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements
         byte[] byteImage = stream.toByteArray();
         String bytesEnconded = Base64.encodeToString(byteImage, Base64.DEFAULT);
 
+        juridica.setFk_Pessoa(new Pessoa());
+        juridica.setFk_Categoria_Loja((Categoria_Loja) spinnerCategoriasLoja.getSelectedItem());
+        if(bytesEnconded != null)
+            juridica.getFk_Pessoa().setFoto(bytesEnconded);
+        juridica.getFk_Pessoa().setNome(editNome.getText().toString());
+        juridica.getFk_Pessoa().setSobrenome(editSobrenome.getText().toString());
+        juridica.getFk_Pessoa().setEmail(editEmail.getText().toString());
+        juridica.getFk_Pessoa().setTelefone(editTelefone.getText().toString());
+        juridica.setCnpj(editCnpj.getText().toString());
+        juridica.setRazao_Social(editRazaoSocial.getText().toString());
+        juridica.setSenha(editSenha.getText().toString());
         if(juridica.getFk_Localizacao() != null)
         {
             Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
@@ -365,6 +376,8 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements
 
                 e.printStackTrace();
             }
+        }else{
+            Toast.makeText(CadastroPessoaJuridicaActivity.this,"Não foi possivel obter sua localizacao",Toast.LENGTH_LONG).show();
         }
     }
 

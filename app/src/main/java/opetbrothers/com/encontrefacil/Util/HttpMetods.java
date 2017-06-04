@@ -10,6 +10,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 /**
  * Created by Lucas Galvao Nunes on 24/04/2017.
@@ -67,10 +68,9 @@ public class HttpMetods {
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf8");
-
             DataOutputStream outputStream = new DataOutputStream(urlConnection.getOutputStream());
 
-            outputStream.writeBytes(pJson);
+            outputStream.write(pJson.getBytes(Charset.forName("UTF-8")));
 
             serverResponseCode = urlConnection.getResponseCode();
             serverResponseMessage = urlConnection.getResponseMessage();
@@ -105,7 +105,7 @@ public class HttpMetods {
 
             DataOutputStream outputStream = new DataOutputStream(urlConnection.getOutputStream());
 
-            outputStream.writeBytes(pJson);
+            outputStream.write(pJson.getBytes(Charset.forName("UTF-8")));
 
             serverResponseCode = urlConnection.getResponseCode();
             serverResponseMessage = urlConnection.getResponseMessage();
@@ -139,7 +139,7 @@ public class HttpMetods {
 
             DataOutputStream outputStream = new DataOutputStream(urlConnection.getOutputStream());
 
-            outputStream.writeBytes(pJson);
+            outputStream.write(pJson.getBytes(Charset.forName("UTF-8")));
 
             serverResponseCode = urlConnection.getResponseCode();
             serverResponseMessage = urlConnection.getResponseMessage();
