@@ -28,6 +28,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.Profile;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
@@ -98,7 +99,7 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "picture.width(500).height(500),first_name,last_name,email,id");
+                parameters.putString("fields", "picture,first_name,last_name,email,id");
                 request.setParameters(parameters);
                 request.executeAsync();
             }
@@ -185,6 +186,7 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                     String bytesEnconded = Base64.encodeToString(byteImage, Base64.DEFAULT);
                     params[0].getFk_Pessoa().setFoto(bytesEnconded);
                     inputStream.close();
+                    String xx = gson.toJson(params[0]);
                     String cadastrar = HttpMetods.POST("PessoaFisica/Cadastrar", gson.toJson(params[0]));
                     return cadastrar;
                 }else{
@@ -211,11 +213,17 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         String json = object.getJSONObject("pessoaFisicaEntity").toString();
                         PessoaFisica pessoaFisica = gson.fromJson(json, PessoaFisica.class);
+                        Util.SalvarDados("pessoaFisica", json, LoginPessoaFisicaActivity.this);
 
-                        Intent i = new Intent(LoginPessoaFisicaActivity.this,MainPessoaFisicaActivity.class);
-                        Util.SalvarDados("pessoaFisica",json, LoginPessoaFisicaActivity.this);
-                        startActivity(i);
-                        finish();
+                        if(pessoaFisica.getCpf() != null) {
+                            Intent i = new Intent(LoginPessoaFisicaActivity.this, MainPessoaFisicaActivity.class);
+                            startActivity(i);
+                            finish();
+                        }else{
+                            Intent i = new Intent(LoginPessoaFisicaActivity.this, AdicionarCPFActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
                     }else{
                         Toast.makeText(LoginPessoaFisicaActivity.this,"Não foi possivel cadastrar",Toast.LENGTH_LONG).show();
                     }
@@ -223,7 +231,11 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
 
                 }catch (Exception e)
                 {
-                    Toast.makeText(LoginPessoaFisicaActivity.this,"Não foi possivel se conectar",Toast.LENGTH_LONG).show();
+                    LoginManager.getInstance().logOut();
+                    Intent i = new Intent(LoginPessoaFisicaActivity.this, LoginActivity.class);
+                    startActivity(i);
+                    finish();
+                    Toast.makeText(LoginPessoaFisicaActivity.this,"Não foi possivel se conectar. Tente Novamente...",Toast.LENGTH_LONG).show();
                 }
                 progress.dismiss();
 

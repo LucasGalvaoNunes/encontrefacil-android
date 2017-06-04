@@ -124,7 +124,7 @@ public class VerificacaoEmailActivity extends AppCompatActivity {
     public void VerificarEmail(View v){
 
         if (codigoVerificacao.getText().toString().length() == 0) {
-            codigoVerificacao.setError("Codigo é obrigatorio!");
+            codigoVerificacao.setError("Código é obrigatório!");
             return;
         }
         pessoaJuridica.setCodigo_verificacao(codigoVerificacao.getText().toString());

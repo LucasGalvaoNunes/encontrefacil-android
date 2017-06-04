@@ -110,14 +110,14 @@ public class LoginActivity extends AppCompatActivity {
     {
         Intent i = new Intent(this,LoginPessoaFisicaActivity.class);
         startActivity(i);
-        finish();
+       // finish();
     }
 
     public void ClickButtonPessoaJuridica(View v)
     {
         Intent i = new Intent(this,LoginPessoaJuridicaActivity.class);
         startActivity(i);
-        finish();
+       // finish();
     }
 
 }

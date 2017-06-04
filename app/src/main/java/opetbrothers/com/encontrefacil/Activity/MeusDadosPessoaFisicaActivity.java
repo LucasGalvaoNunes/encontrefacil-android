@@ -73,6 +73,7 @@ public class MeusDadosPessoaFisicaActivity extends AppCompatActivity {
         editTextSobrenome.setText(pessoaFisica.getFk_Pessoa().getSobrenome());
         editTextTelefone.setText(pessoaFisica.getFk_Pessoa().getTelefone());
         editTextEmail.setText(pessoaFisica.getFk_Pessoa().getEmail());
+        editTextCPF.setText(pessoaFisica.getCpf());
         //endregion
 
     }
@@ -81,19 +82,23 @@ public class MeusDadosPessoaFisicaActivity extends AppCompatActivity {
 
         //region VALIDAÇÃO
         if (editTextNome.getText().toString().length() == 0) {
-            editTextNome.setError("Nome é obrigatorio!");
+            editTextNome.setError("Nome é obrigatório!");
             return;
         }
         if (editTextSobrenome.getText().toString().length() == 0) {
-            editTextSobrenome.setError("Sobrenome é obrigatorio!");
+            editTextSobrenome.setError("Sobrenome é obrigatório!");
             return;
         }
         if (editTextTelefone.getText().toString().length() == 0) {
-            editTextTelefone.setError("Telefone é obrigatorio!");
+            editTextTelefone.setError("Telefone é obrigatório!");
             return;
         }
         if (editTextEmail.getText().toString().length() == 0) {
-            editTextEmail.setError("Email é obrigatorio!");
+            editTextEmail.setError("Email é obrigatório!");
+            return;
+        }
+        if (editTextCPF.getText().toString().length() == 0) {
+            editTextCPF.setError("CPF é obrigatório!");
             return;
         }
 
@@ -104,6 +109,7 @@ public class MeusDadosPessoaFisicaActivity extends AppCompatActivity {
         pessoaFisica.getFk_Pessoa().setSobrenome(editTextSobrenome.getText().toString());
         pessoaFisica.getFk_Pessoa().setTelefone(editTextTelefone.getText().toString());
         pessoaFisica.getFk_Pessoa().setEmail(editTextEmail.getText().toString());
+        pessoaFisica.setCpf(editTextCPF.getText().toString());
 
         new SalvarClassePessoa().execute(pessoaFisica.getFk_Pessoa());
         new SalvarAlteracoesFisica().execute(pessoaFisica);
@@ -142,14 +148,12 @@ public class MeusDadosPessoaFisicaActivity extends AppCompatActivity {
         protected String doInBackground(Pessoa... params){
 
             Gson gson = new Gson();
-
+            String xx = gson.toJson(params[0]);
             try{
-
                 String salvar = HttpMetods.PUT("Pessoa/Atualizar/", gson.toJson(params[0]));
 
                 JSONObject result = new JSONObject(salvar);
                 result.remove("type");
-                String s = result.getString("ok");
                 return result.getString("ok");
 
             }catch (Exception e){
@@ -162,7 +166,7 @@ public class MeusDadosPessoaFisicaActivity extends AppCompatActivity {
             super.onPostExecute(s);
         }
     }
-        private class SalvarAlteracoesFisica extends AsyncTask<PessoaFisica, Void, String>{
+    private class SalvarAlteracoesFisica extends AsyncTask<PessoaFisica, Void, String>{
 
         boolean isConnected = false;
         ProgressDialog progress;
