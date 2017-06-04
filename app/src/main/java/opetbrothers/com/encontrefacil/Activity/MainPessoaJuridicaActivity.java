@@ -68,10 +68,13 @@ public class MainPessoaJuridicaActivity extends AppCompatActivity
         String jsonPrefe = Util.RecuperarUsuario("pessoaJuridica", MainPessoaJuridicaActivity.this);
         Gson gson = new Gson();
         pessoaJuridica = gson.fromJson(jsonPrefe, PessoaJuridica.class);
-        byte[] foto = Base64.decode(pessoaJuridica.getFk_Pessoa().getFoto(), Base64.DEFAULT);
+        if(pessoaJuridica.getFk_Pessoa().getFoto() != null)
+        {
+            byte[] foto = Base64.decode(pessoaJuridica.getFk_Pessoa().getFoto(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(foto, 0, foto.length);
+            imageLoja.setImageBitmap(bitmap);
+        }
         username.setText(pessoaJuridica.getRazao_Social());
-        Bitmap bitmap = BitmapFactory.decodeByteArray(foto, 0, foto.length);
-        imageLoja.setImageBitmap(bitmap);
 
     }
 
@@ -123,6 +126,7 @@ public class MainPessoaJuridicaActivity extends AppCompatActivity
             case R.id.nav_meusDados:
                 return true;
             case R.id.nav_relatorio:
+                startActivity(new Intent(MainPessoaJuridicaActivity.this,RelatorioPessoaJuridicaActivity.class));
                 return true;
         }
 

@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -22,10 +23,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
 
         <activity android:name=".Activity.LoginActivity">
             <intent-filter>
@@ -123,13 +123,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.MainPessoaJuridicaActivity" />
         </activity>
-        <activity android:name=".Activity.MeusDadosPessoaJuridicaActivity"></activity>
-
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <activity android:name=".Activity.MeusDadosPessoaJuridicaActivity" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
-
+        <activity android:name=".Activity.RelatorioPessoaJuridicaActivity"
+            android:parentActivityName=".Activity.MainPessoaJuridicaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainPessoaJuridicaActivity" />
+        </activity>
     </application>
 
 </manifest>
