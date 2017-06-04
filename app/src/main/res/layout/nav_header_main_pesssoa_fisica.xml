@@ -28,7 +28,7 @@
         android:layout_below="@+id/imageView7"
         android:layout_centerHorizontal="true"
         android:fontFamily="casual"
-        android:text="Toninho Junior"
+        android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@android:color/background_dark"
         android:textSize="30sp" />
@@ -46,7 +46,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
-        android:layout_above="@+id/textViewNomePessoaJuridicaLogada"
+        android:layout_above="@+id/textViewNomePessoaFisicaLogada"
         android:layout_alignEnd="@+id/imageView7"
         android:onClick="Sair"/>
 

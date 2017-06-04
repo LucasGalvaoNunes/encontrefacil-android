@@ -98,7 +98,7 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "picture,first_name,last_name,email,id");
+                parameters.putString("fields", "picture.width(500).height(500),first_name,last_name,email,id");
                 request.setParameters(parameters);
                 request.executeAsync();
             }
@@ -113,16 +113,6 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                 // App code
             }
         });
-    }
-
-    public void toActivityMain(Pessoa pessoaFisica){
-
-        Intent i = new Intent(this,MainPessoaFisicaActivity.class);
-        i.putExtra("nome", pessoa.getNome());
-        i.putExtra("sobrenome", pessoa.getSobrenome());
-        i.putExtra("foto", pessoa.getFoto().toString());
-        startActivity(i);
-        finish();
     }
 
     @Override

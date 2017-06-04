@@ -1,6 +1,8 @@
 package opetbrothers.com.encontrefacil.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,15 +23,22 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import opetbrothers.com.encontrefacil.Adapters.ProdutosPessoaFisicaAdapter;
+import opetbrothers.com.encontrefacil.Model.PessoaFisica;
+import opetbrothers.com.encontrefacil.Model.PessoaJuridica;
 import opetbrothers.com.encontrefacil.Model.Produto;
 import opetbrothers.com.encontrefacil.R;
+import opetbrothers.com.encontrefacil.Util.Util;
+
 public class MainPessoaFisicaActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
+
+    PessoaFisica pessoaFisica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +56,18 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        TextView username = (TextView) header.findViewById(R.id.textViewNomePessoaFisicaLogada);
+        ImageView imagePerfil = (ImageView) header.findViewById(R.id.imageView7);
+
+        String jsonPrefe = Util.RecuperarUsuario("pessoaFisica", MainPessoaFisicaActivity.this);
+        Gson gson = new Gson();
+        pessoaFisica = gson.fromJson(jsonPrefe, PessoaFisica.class);
+        byte[] foto = Base64.decode(pessoaFisica.getFk_Pessoa().getFoto(), Base64.DEFAULT);
+        username.setText(pessoaFisica.getFk_Pessoa().getNome() + " " + pessoaFisica.getFk_Pessoa().getSobrenome());
+        Bitmap bitmap = BitmapFactory.decodeByteArray(foto, 0, foto.length);
+        imagePerfil.setImageBitmap(bitmap);
 
     }
     @Override
