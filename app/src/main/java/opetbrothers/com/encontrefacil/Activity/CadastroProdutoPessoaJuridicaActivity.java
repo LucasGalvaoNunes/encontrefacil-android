@@ -236,15 +236,7 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
                 }
                 if(labelAnnotations != null)
                 {
-                    String categorias = "";
-                    for(int i = 0; i < labelAnnotations.size(); i++)
-                    {
-                        if(i != labelAnnotations.size() - 1)
-                            categorias += labelAnnotations.get(i).getDescription() + "; ";
-                        else
-                            categorias += labelAnnotations.get(i).getDescription();
-                    }
-                    editCategoriaProduto.setText(categorias);
+                    editCategoriaProduto.setText(labelAnnotations.get(0).getDescription());
                 }
                 progress.dismiss();
             }
@@ -281,6 +273,7 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Produto... params) {
             Gson gson = new Gson();
+
             String json = gson.toJson(params[0]);
             String produto = HttpMetods.POST("Produto/Cadastrar",gson.toJson(params[0]));
             return produto;

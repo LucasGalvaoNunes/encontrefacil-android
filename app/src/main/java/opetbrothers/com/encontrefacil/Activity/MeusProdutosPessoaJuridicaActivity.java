@@ -100,7 +100,7 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Integer... params) {
-            String produtos = HttpMetods.GET("Produto/TodasPorLoja/" + params[0].toString());
+            String produtos = HttpMetods.GET("Produto/PorLoja/" + params[0].toString());
             return produtos;
         }
 

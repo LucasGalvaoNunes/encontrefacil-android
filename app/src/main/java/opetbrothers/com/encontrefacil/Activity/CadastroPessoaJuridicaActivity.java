@@ -1,15 +1,26 @@
 package opetbrothers.com.encontrefacil.Activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.media.ThumbnailUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -30,8 +41,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import opetbrothers.com.encontrefacil.Model.Categoria_Loja;
 import opetbrothers.com.encontrefacil.Model.Localizacao;
@@ -41,7 +54,7 @@ import opetbrothers.com.encontrefacil.R;
 import opetbrothers.com.encontrefacil.Util.HttpMetods;
 import opetbrothers.com.encontrefacil.Util.Util;
 
-public class CadastroPessoaJuridicaActivity extends AppCompatActivity {
+public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements LocationListener {
 
     //region ATRIBUTOS DA VIEW
     ImageView imagemLoja;
@@ -56,17 +69,27 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity {
     EditText editCnpj;
     Button btnSalvar;
     //endregion
-
+    LocationManager locationManager;
+    String provider;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private List<Categoria_Loja> categorias;
-
+    PessoaJuridica juridica;
 
     //region Android Metods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_pessoa_juridica);
+        juridica = new PessoaJuridica();
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        provider = locationManager.getBestProvider(new Criteria(), false);
 
+        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            buildAlertMessageNoGps();
+        }
+        if(ActivityCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+           locationManager.requestLocationUpdates(provider, 400, 1, this);
+        }
         imagemLoja = (ImageView) findViewById(R.id.imageLojaCadastro);
         spinnerCategoriasLoja = (Spinner) findViewById(R.id.spinnerCategoriasLoja);
         editRazaoSocial = (EditText) findViewById(R.id.editRazaoSocial);
@@ -109,6 +132,30 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity {
             Bitmap imageBitmap = ThumbnailUtils.extractThumbnail((Bitmap) extras.get("data"),125,125,ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
             imagemLoja.setImageBitmap(imageBitmap);
         }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Localizacao loca = new Localizacao();
+        loca.setLatitude(String.valueOf(location.getLatitude()));
+        loca.setLongitude(String.valueOf(location.getLongitude()));
+        juridica.setFk_Localizacao(loca);
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
     //endregion
 
@@ -297,16 +344,28 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity {
         byte[] byteImage = stream.toByteArray();
         String bytesEnconded = Base64.encodeToString(byteImage, Base64.DEFAULT);
 
-        PessoaJuridica juridica = new PessoaJuridica(new Pessoa
-            (editNome.getText().toString(),editSobrenome.getText().toString()
-                    ,editTelefone.getText().toString()
-                    ,bytesEnconded
-                    ,editEmail.getText().toString())
-            ,(Categoria_Loja) spinnerCategoriasLoja.getSelectedItem(),new Localizacao("123-987","789-987")
-            ,editSenha.getText().toString()
-            ,editRazaoSocial.getText().toString()
-            ,editCnpj.getText().toString());
-        new SalvarDados().execute(juridica);
+        if(juridica.getFk_Localizacao() != null)
+        {
+            Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
+            List<Address> addresses;
+            try {
+                addresses = gcd.getFromLocation(Double.valueOf(juridica.getFk_Localizacao().getLatitude()),
+                        Double.valueOf(juridica.getFk_Localizacao().getLongitude()), 1);
+                if (addresses.size() > 0) {
+                    Localizacao loca = juridica.getFk_Localizacao();
+                    loca.setBairro(addresses.get(0).getSubLocality());
+                    loca.setCidade(addresses.get(0).getLocality());
+                    loca.setEstado(addresses.get(0).getAdminArea());
+                    juridica.setFk_Localizacao(loca);
+                    new SalvarDados().execute(juridica);
+                }else{
+                    Toast.makeText(CadastroPessoaJuridicaActivity.this,"Não foi possivel obter sua localizacao",Toast.LENGTH_LONG).show();
+                }
+            }catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -321,4 +380,22 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity {
         }
     }
     //endregion
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(CadastroPessoaJuridicaActivity.this);
+        builder.setMessage("Seu Gps esta desativado, por favor ative!")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
 }

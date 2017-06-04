@@ -11,13 +11,18 @@ public class Localizacao implements Serializable {
     private int id_Localizacao;
     private String longitude;
     private String latitude;
-
+    private String cidade;
+    private String estado;
+    private String bairro;
     public Localizacao() {
     }
 
-    public Localizacao(String longitude, String latitude) {
+    public Localizacao(String longitude, String latitude, String cidade, String estado, String bairro) {
         this.longitude = longitude;
         this.latitude = latitude;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.bairro = bairro;
     }
 
     public int getId_Localizacao() {
@@ -42,5 +47,31 @@ public class Localizacao implements Serializable {
 
     public void setLatitude(String latitude) {
         this.latitude = latitude;
+    }
+
+
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 }
