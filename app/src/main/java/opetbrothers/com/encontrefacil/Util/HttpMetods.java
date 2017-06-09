@@ -57,40 +57,6 @@ public class HttpMetods {
         }
     }
     
-    public static String GET(String pUrl,String pJson)
-    {
-        HttpURLConnection urlConnection = null;
-        try {
-            java.net.URL url = new URL(URL + pUrl);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.setDoInput(true);
-            urlConnection.setDoOutput(true);
-            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf8");
-            DataOutputStream outputStream = new DataOutputStream(urlConnection.getOutputStream());
-
-            outputStream.write(pJson.getBytes(Charset.forName("UTF-8")));
-
-            serverResponseCode = urlConnection.getResponseCode();
-            serverResponseMessage = urlConnection.getResponseMessage();
-
-            String result = webToString(urlConnection.getInputStream());
-
-            outputStream.flush();
-            outputStream.close();
-
-            return result;
-
-        } catch (Exception e) {
-            Log.e("Error", "Error ", e);
-            return null;
-        } finally{
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-        }
-    }
-
     public static String POST(String pUrl, String pJson)
     {
         HttpURLConnection urlConnection = null;
