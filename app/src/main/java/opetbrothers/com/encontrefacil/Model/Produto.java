@@ -18,8 +18,9 @@ public class Produto implements Serializable{
     private String preco;
     private String foto;
     private Timestamp data_Publicacao;
+    private int is_active;
 
-    public Produto(Categoria_Produto fk_Categoria_Produto, Marca_Produto fk_Marca_Produto,PessoaJuridica fk_Pessoa_Juridica, String nome, String descricao, String preco, String foto, Timestamp data_Publicacao) {
+    public Produto(Categoria_Produto fk_Categoria_Produto, Marca_Produto fk_Marca_Produto,PessoaJuridica fk_Pessoa_Juridica, String nome, String descricao, String preco, String foto, Timestamp data_Publicacao, int is_active;) {
         this.fk_Categoria_Produto = fk_Categoria_Produto;
         this.fk_Marca_Produto = fk_Marca_Produto;
         this.fk_Pessoa_Juridica = fk_Pessoa_Juridica;
@@ -28,6 +29,7 @@ public class Produto implements Serializable{
         this.preco = preco;
         this.foto = foto;
         this.data_Publicacao = data_Publicacao;
+        this.is_active = is_active;
     }
 
     public Produto() {
@@ -104,4 +106,12 @@ public class Produto implements Serializable{
     public void setFk_Pessoa_Juridica(PessoaJuridica fk_Pessoa_Juridica) {
         this.fk_Pessoa_Juridica = fk_Pessoa_Juridica;
     }
+    
+    public int getIs_active() {
+		return is_active;
+	}
+
+	public void setIs_active(int is_active) {
+		this.is_active = is_active;
+	}
 }
