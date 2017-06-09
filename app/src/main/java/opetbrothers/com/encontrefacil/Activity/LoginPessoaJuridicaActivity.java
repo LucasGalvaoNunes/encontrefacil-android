@@ -120,7 +120,8 @@ public class LoginPessoaJuridicaActivity extends AppCompatActivity {
                         if(pessoaJuridica.getCodigo_verificacao() == "" || pessoaJuridica.getCodigo_verificacao() == null)
                         {
                             Intent main = new Intent(LoginPessoaJuridicaActivity.this,MainPessoaJuridicaActivity.class);
-                            Util.SalvarDados("pessoaJuridica",object.getJSONObject("pessoaJuridica").toString(), LoginPessoaJuridicaActivity.this);
+                            String JsonToSave = object.getJSONObject("pessoaJuridica").toString();
+                            Util.SalvarDados("pessoaJuridica",JsonToSave, LoginPessoaJuridicaActivity.this);
                             startActivity(main);
                             finish();
                         }else{

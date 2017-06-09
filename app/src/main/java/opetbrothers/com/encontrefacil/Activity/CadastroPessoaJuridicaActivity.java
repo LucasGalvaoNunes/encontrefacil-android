@@ -23,6 +23,8 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,13 +54,13 @@ import opetbrothers.com.encontrefacil.Model.Pessoa;
 import opetbrothers.com.encontrefacil.Model.PessoaJuridica;
 import opetbrothers.com.encontrefacil.R;
 import opetbrothers.com.encontrefacil.Util.HttpMetods;
+import opetbrothers.com.encontrefacil.Util.PatternsUtil;
 import opetbrothers.com.encontrefacil.Util.Util;
 
 public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements LocationListener {
 
     //region ATRIBUTOS DA VIEW
     ImageView imagemLoja;
-    ImageButton btnTirarFoto;
     Spinner spinnerCategoriasLoja;
     EditText editRazaoSocial;
     EditText editEmail;
@@ -67,7 +69,6 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements
     EditText editSenha;
     EditText editTelefone;
     EditText editCnpj;
-    Button btnSalvar;
     //endregion
     LocationManager locationManager;
     String provider;
@@ -101,6 +102,8 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements
         editCnpj = (EditText) findViewById(R.id.editCnpj);
         categorias = new ArrayList<Categoria_Loja>();
 
+        editTelefone.addTextChangedListener(new PatternsUtil(editTelefone).getpPatternTelefone());
+        editCnpj.addTextChangedListener(new PatternsUtil(editCnpj).getpPatternCNPJ());
         new PegarCategoriaLojaServidor().execute();
 
     }
@@ -259,6 +262,7 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements
         @Override
         protected String doInBackground(PessoaJuridica... params) {
             Gson gson = new Gson();
+            String json = gson.toJson(params[0]);
             String juridica = HttpMetods.POST("PessoaJuridica/Cadastrar",gson.toJson(params[0]));
             return juridica;
         }
@@ -299,7 +303,6 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements
         }
     }
     //endregion
-
 
     //region BUTTON CLICKS
     public void Registrar(View v)
@@ -394,6 +397,7 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements
     }
     //endregion
 
+    //region Other Metods
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(CadastroPessoaJuridicaActivity.this);
         builder.setMessage("Seu GPS esta desativado, por favor ative!")
@@ -411,4 +415,5 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements
         final AlertDialog alert = builder.create();
         alert.show();
     }
+    //endregion
 }

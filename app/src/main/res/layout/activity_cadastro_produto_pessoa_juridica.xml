@@ -17,10 +17,10 @@
             android:id="@+id/imageCadastroProduto"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_weight="1"
-            app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+            app:srcCompat="@drawable/product"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
         <ImageButton
             android:id="@+id/btnTirarFotoProd"
@@ -29,32 +29,41 @@
             android:layout_alignBottom="@+id/imageCadastroProduto"
             android:layout_alignEnd="@+id/imageCadastroProduto"
             android:layout_weight="1"
+            android:background="#00ff0000"
             android:onClick="TirarFotoProduto"
-            app:srcCompat="@drawable/ic_menu_camera" />
+            app:srcCompat="@drawable/camera" />
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/editCategoriaProduto"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Çategoria Produto..."
-        android:inputType="textPersonName"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="234dp" />
+        android:layout_height="40dp"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/editMarcaProduto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Marca..."
-        android:inputType="textPersonName"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="234dp" />
+        <EditText
+            android:id="@+id/editCategoriaProduto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Categoria"
+            android:inputType="textPersonName"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="234dp" />
+
+        <EditText
+            android:id="@+id/editMarcaProduto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Marca..."
+            android:inputType="textPersonName"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="234dp" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/editNomeProduto"
@@ -89,14 +98,11 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="234dp" />
 
-    <Button
-        android:id="@+id/btnSalvarProduto"
+    <ImageButton
+        android:id="@+id/btnSalvarCadastro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
-        android:fontFamily="casual"
+        android:background="#00ff0000"
         android:onClick="CadastrarProduto"
-        android:text="Salvar"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="20sp" />
+        app:srcCompat="@drawable/salvar" />
 </LinearLayout>

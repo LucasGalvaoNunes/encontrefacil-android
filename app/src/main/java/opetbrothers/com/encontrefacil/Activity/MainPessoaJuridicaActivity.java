@@ -124,6 +124,7 @@ public class MainPessoaJuridicaActivity extends AppCompatActivity
                 startActivity(new Intent(MainPessoaJuridicaActivity.this,MeusProdutosPessoaJuridicaActivity.class));
                 return true;
             case R.id.nav_meusDados:
+                startActivity(new Intent(MainPessoaJuridicaActivity.this,MeusDadosPessoaJuridicaActivity.class));
                 return true;
             case R.id.nav_relatorio:
                 startActivity(new Intent(MainPessoaJuridicaActivity.this,RelatorioPessoaJuridicaActivity.class));

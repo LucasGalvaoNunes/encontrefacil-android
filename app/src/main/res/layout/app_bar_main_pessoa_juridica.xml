@@ -24,11 +24,11 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="65dp"
+        android:layout_height="59dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@android:color/black"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:backgroundTint="@color/common_google_signin_btn_text_dark_pressed"
+        app:srcCompat="@drawable/addproduct" />
 
 </android.support.design.widget.CoordinatorLayout>

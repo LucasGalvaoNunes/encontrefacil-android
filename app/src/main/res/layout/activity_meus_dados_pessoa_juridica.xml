@@ -9,60 +9,92 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="121dp"
+        android:layout_height="125dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageLojaCadastro"
+            android:id="@+id/imageLojaAtualiza"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_weight="1"
-            app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+            app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <ImageButton
-            android:id="@+id/btnTirarFoto"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignBottom="@+id/imageLojaCadastro"
-            android:layout_alignEnd="@+id/imageLojaCadastro"
-            android:layout_weight="1"
-            android:onClick="TirarFoto"
-            app:srcCompat="@drawable/ic_menu_camera" />
+            android:id="@+id/imageButton8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ff0000"
+            android:onClick="TirarFotoAtualiza"
+            app:srcCompat="@drawable/camera"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/imageLojaAtualiza" />
+
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/editText3"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editSenha"
-        android:layout_below="@+id/editSenha"
-        android:ems="10"
-        android:hint="Razão social..."
-        android:inputType="textPersonName"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="234dp" />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editNomeAtualiza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Nome..."
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="234dp" />
+
+        <EditText
+            android:id="@+id/editSobrenomeAtualiza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Sobrenome..."
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="234dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editCnpjAtualiza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="CNPJ..."
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editRazaoSocialAtualiza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Razão social..."
+            android:inputType="textPersonName"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/editTextEmailAtualiza"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editSenha"
-        android:layout_below="@+id/editSenha"
-        android:ems="10"
-        android:hint="CNPJ..."
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="234dp" />
-
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:enabled="false"
         android:layout_alignStart="@+id/editSenha"
         android:layout_below="@+id/editSobrenome"
         android:ems="10"
@@ -72,9 +104,10 @@
         tools:layout_editor_absoluteY="234dp" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/editTextTelefoneAtualiza"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLength="12"
         android:layout_alignStart="@+id/editEmail"
         android:layout_below="@+id/imageView5"
         android:ems="10"
@@ -84,45 +117,41 @@
         tools:layout_editor_absoluteY="234dp" />
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/editTextnovaSenha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editEmail"
-        android:layout_below="@+id/imageView5"
+        android:layout_below="@+id/editEmail"
+        android:layout_centerHorizontal="true"
         android:ems="10"
-        android:hint="Nome..."
+        android:hint="Nova senha.."
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="234dp" />
 
     <EditText
-        android:id="@+id/editText16"
+        android:id="@+id/editTextConfirmaSenha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editNome"
-        android:layout_below="@+id/editNome"
+        android:layout_below="@+id/editEmail"
+        android:layout_centerHorizontal="true"
         android:ems="10"
-        android:hint="Sobrenome..."
+        android:hint="Confirmar senha..."
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="234dp" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerCategoriaAtualiza"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignStart="@+id/editRazaoSocial"
         android:layout_below="@+id/editRazaoSocial" />
 
-    <Button
-        android:id="@+id/button3"
+    <ImageButton
+        android:id="@+id/imageButton7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
-        android:fontFamily="casual"
-        android:onClick="Registrar"
-        android:text="Salvar"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="20sp" />
-
+        android:background="#00ff0000"
+        android:onClick="AtualizaButton"
+        app:srcCompat="@drawable/salvar" />
 </LinearLayout>

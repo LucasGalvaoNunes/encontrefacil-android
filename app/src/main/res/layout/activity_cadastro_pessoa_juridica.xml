@@ -21,7 +21,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_weight="1"
-            app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+            app:srcCompat="@drawable/shop" />
 
         <ImageButton
             android:id="@+id/imageButton2"
@@ -77,6 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLength="18"
             android:ems="10"
             android:hint="CNPJ..."
             android:inputType="textPersonName" />
@@ -112,7 +113,8 @@
         android:layout_below="@+id/imageView5"
         android:ems="10"
         android:hint="Telefone..."
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|number"
+        android:maxLength="13"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="234dp" />
 
