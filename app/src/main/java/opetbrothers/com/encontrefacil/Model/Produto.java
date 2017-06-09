@@ -20,7 +20,7 @@ public class Produto implements Serializable{
     private Timestamp data_Publicacao;
     private int is_active;
 
-    public Produto(Categoria_Produto fk_Categoria_Produto, Marca_Produto fk_Marca_Produto,PessoaJuridica fk_Pessoa_Juridica, String nome, String descricao, String preco, String foto, Timestamp data_Publicacao, int is_active;) {
+    public Produto(Categoria_Produto fk_Categoria_Produto, Marca_Produto fk_Marca_Produto,PessoaJuridica fk_Pessoa_Juridica, String nome, String descricao, String preco, String foto, Timestamp data_Publicacao, int is_active) {
         this.fk_Categoria_Produto = fk_Categoria_Produto;
         this.fk_Marca_Produto = fk_Marca_Produto;
         this.fk_Pessoa_Juridica = fk_Pessoa_Juridica;
@@ -34,6 +34,18 @@ public class Produto implements Serializable{
 
     public Produto() {
     }
+
+    public Produto(Categoria_Produto fk_Categoria_Produto, Marca_Produto fk_Marca_Produto,PessoaJuridica fk_Pessoa_Juridica, String nome, String descricao, String preco, String foto, Timestamp data_Publicacao) {
+        this.fk_Categoria_Produto = fk_Categoria_Produto;
+        this.fk_Marca_Produto = fk_Marca_Produto;
+        this.fk_Pessoa_Juridica = fk_Pessoa_Juridica;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.foto = foto;
+        this.data_Publicacao = data_Publicacao;
+    }
+
 
     public int getId_Produto() {
         return id_Produto;

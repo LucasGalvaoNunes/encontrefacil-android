@@ -58,6 +58,14 @@
         android:inputType="textPersonName" />
 
     <EditText
+        android:id="@+id/editTextCPF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="CPF..."
+        android:inputType="textPersonName" />
+
+    <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,13 +74,6 @@
         android:hint="Email..."
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/editTextCPF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="CPF..."
-        android:inputType="textPersonName" />
 
     <ImageButton
         android:id="@+id/btSalvarAlteracoesPF"
