@@ -1,11 +1,18 @@
 package opetbrothers.com.encontrefacil.Activity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -58,9 +65,30 @@ public class CategoriasProdutosPessoaFisicaActivity extends AppCompatActivity {
 
     public class listaCategorias extends AsyncTask<Void, Void, String>{
 
+        boolean isConnected = false;
+        ProgressDialog progress;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
+            ConnectivityManager cm =
+                    (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            isConnected = activeNetwork != null &&
+                    activeNetwork.isConnectedOrConnecting();
+
+            if(isConnected) {
+                progress = new ProgressDialog(CategoriasProdutosPessoaFisicaActivity.this);
+                progress.setMessage("Carregando...");
+                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progress.setProgress(0);
+                progress.show();
+            }
+            else{
+                Toast.makeText(CategoriasProdutosPessoaFisicaActivity.this, "Verifique a conexão com a internet...", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -79,28 +107,42 @@ public class CategoriasProdutosPessoaFisicaActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            if(s != null) {
-                ArrayList<Categoria_Produto> categorias = new ArrayList<Categoria_Produto>();
+            if(isConnected) {
+                if (s != null) {
+                    ArrayList<Categoria_Produto> categorias = new ArrayList<Categoria_Produto>();
 
-                try {
-                    JSONObject object = new JSONObject(s);
-                    JSONArray result_categorias =  object.getJSONArray("lista");
+                    try {
+                        JSONObject object = new JSONObject(s);
+                        JSONArray result_categorias = object.getJSONArray("lista");
 
-                    for(int i = 0; i < result_categorias.length(); i++){
-                        categorias.add(new Categoria_Produto(result_categorias.getJSONObject(i).getString("nome")));
+                        for (int i = 0; i < result_categorias.length(); i++) {
+                            categorias.add(new Categoria_Produto(result_categorias.getJSONObject(i).getInt("id_Categoria_Produto"), result_categorias.getJSONObject(i).getString("nome")));
+                        }
+
+                        ListView listView = (ListView) findViewById(R.id.listViewCategoriasProdutos);
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            //            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Categoria_Produto categoria_produto = (Categoria_Produto) parent.getItemAtPosition(position);
+                                Intent i = new Intent(CategoriasProdutosPessoaFisicaActivity.this, ProdutosPessoaFisicaActivity.class);
+                                i.putExtra("idCategoria", categoria_produto.getId_Categoria_Produto());
+                                startActivity(i);
+
+                            }
+                        });
+                        CategoriaProdutoAdapter produtosPessoaJuridicaAdapter = new CategoriaProdutoAdapter(CategoriasProdutosPessoaFisicaActivity.this, R.layout.list_categoria_produto, categorias);
+                        listView.setAdapter(produtosPessoaJuridicaAdapter);
+
+                        progress.dismiss();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    ListView listView = (ListView) findViewById(R.id.listViewCategoriasProdutos);
-                    CategoriaProdutoAdapter produtosPessoaJuridicaAdapter = new CategoriaProdutoAdapter(CategoriasProdutosPessoaFisicaActivity.this,R.layout.list_categoria_produto, categorias);
-                    listView.setAdapter(produtosPessoaJuridicaAdapter);
-
-                    String x = "ola";
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } else {
+                    Toast.makeText(CategoriasProdutosPessoaFisicaActivity.this, "Ocorreu um erro no servidor", Toast.LENGTH_LONG).show();
                 }
             }else{
-                Toast.makeText(CategoriasProdutosPessoaFisicaActivity.this, "Ocorreu um erro no servidor", Toast.LENGTH_LONG).show();
+                Toast.makeText(CategoriasProdutosPessoaFisicaActivity.this,"Verifique a sua conexão...",Toast.LENGTH_LONG).show();
             }
         }
     }

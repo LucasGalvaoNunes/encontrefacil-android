@@ -85,7 +85,6 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                                     pessoaFisica = new PessoaFisica();
                                     pessoa.setNome(object.getString("first_name"));
                                     pessoa.setSobrenome(object.getString("last_name"));
-                                    pessoa.setTelefone("123");
                                     pessoa.setEmail(object.getString("email"));
                                     long id = object.getLong("id");
                                     pessoaFisica.setId_facebook(String.valueOf(id));

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_weight="0.29">
+
+        <TextView
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="234dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:text="Dígite a distancia máxima dos produtos:"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/editDistanciaMaxima"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="234dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Distância em Km"
+        android:inputType="textPersonName"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btConfirmaDistancia"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
+            android:fontFamily="casual"
+            android:text="Confirma"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="20sp"
+            android:onClick="confirmaFiltroKN"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -144,7 +144,7 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
 
         }catch (IOException e){
             e.printStackTrace();
-            Toast.makeText(MainPessoaFisicaActivity.this, "Ocorreu um erro no servidor do Google Maps. Tente novamente!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainPessoaFisicaActivity.this, "Ocorreu um erro na conexão. Tente novamente!", Toast.LENGTH_LONG).show();
             LoginManager.getInstance().logOut();
             Intent intent = new Intent(getApplicationContext(), LoginPessoaFisicaActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -331,8 +331,8 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
         EditText editbuscaProduto;
         editbuscaProduto = (EditText) findViewById(R.id.editText9);
 
-
-        startActivity(new Intent(this,ProdutosPessoaFisicaActivity.class));
+        Intent intent = new Intent(MainPessoaFisicaActivity.this, ProdutosPessoaFisicaActivity.class);
+        startActivity(intent);
     }
 
 

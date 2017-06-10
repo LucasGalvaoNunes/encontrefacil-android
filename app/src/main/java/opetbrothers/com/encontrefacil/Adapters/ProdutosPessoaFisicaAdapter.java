@@ -1,11 +1,15 @@
 package opetbrothers.com.encontrefacil.Adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -40,13 +44,20 @@ public class ProdutosPessoaFisicaAdapter extends ArrayAdapter<Produto>
         if(p != null){
             TextView txtNome = (TextView) v.findViewById(R.id.textNomeProduto);
             TextView textPreco = (TextView) v.findViewById(R.id.textPrecoProduto);
+            ImageView imageProd = (ImageView) v.findViewById(R.id.imageProduto);
             if(txtNome != null)
             {
                 txtNome.setText(p.getNome());
             }
             if(textPreco != null)
             {
-                textPreco.setText(p.getPreco());
+                textPreco.setText("R$ " + p.getPreco());
+            }
+            if(imageProd != null)
+            {
+                byte[] foto = Base64.decode(p.getFoto(), Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(foto, 0, foto.length);
+                imageProd.setImageBitmap(bitmap);
             }
         }
         return v;

@@ -124,7 +124,7 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Nova senha.."
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="234dp" />
 
@@ -136,7 +136,7 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Confirmar senha..."
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="234dp" />
 
