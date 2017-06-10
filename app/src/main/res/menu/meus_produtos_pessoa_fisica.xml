@@ -32,6 +32,11 @@
                 android:id="@+id/filtro_PorAvaliacao"
                 android:icon="?android:attr/actionModePasteDrawable"
                 android:title="Avaliação" />
+
+            <item
+                android:id="@+id/filtro_nenhum"
+                android:icon="?android:attr/actionModePasteDrawable"
+                android:title="Nenhum"/>
         </menu>
     </item>
 

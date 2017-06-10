@@ -21,6 +21,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,6 +61,7 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
     ArrayList<Produto> listProdutos = new ArrayList<>();
     Gson gson = new Gson();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,18 +91,82 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
             case R.id.filtro_PorAvaliacao:
                 Toast.makeText(this, "Você clicou em avaliação!", Toast.LENGTH_LONG).show();
 
-
                 break;
 
             case R.id.filtro_PorKm:
-                Toast.makeText(this, "Você clicou em KM!", Toast.LENGTH_LONG).show();
 
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(ProdutosPessoaFisicaActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_filtro_distancia_pessoa_fisica, null);
+                Button btConfirmaKM = (Button) mView.findViewById((R.id.btConfirmaDistancia));
+
+                InputFilter[] ml= new InputFilter[1];
+                ml[0] = new InputFilter.LengthFilter(6);
+
+                final EditText editDistancia = (EditText) mView.findViewById(R.id.editDistanciaMaxima);
+                editDistancia.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+                editDistancia.setFilters(ml);
 
                 mBuilder.setView(mView);
-                AlertDialog dialog = mBuilder.create();
+                final AlertDialog dialog = mBuilder.create();
                 dialog.show();
+
+                btConfirmaKM.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                        String distInserida = editDistancia.getText().toString();
+                        distInserida = distInserida.replace(",",".");
+
+                        if(distInserida.substring(0,1).equals(".") || distInserida.contains("-") || distInserida.contains(" ")){
+                            editDistancia.setError("Digite um valor válido!");
+                            return;
+                        }
+
+                        distInserida = distInserida.replace("-","");
+
+                        ArrayList<Produto> produtosFiltroKM = new ArrayList<>();
+                        Double distDigitada = Double.parseDouble(distInserida);
+
+                        Location location = instanciaLocation();
+                        Location localLoja = new Location("");
+
+                        for(int i = 0; i < listProdutos.size(); i++){
+
+                            localLoja.setLatitude(Double.parseDouble(listProdutos.get(i).getFk_Pessoa_Juridica().getFk_Localizacao().getLatitude()));
+                            localLoja.setLongitude(Double.parseDouble(listProdutos.get(i).getFk_Pessoa_Juridica().getFk_Localizacao().getLongitude()));
+
+                            Float returnDistancia = location.distanceTo(localLoja)/1000;
+
+                            DecimalFormat df = new DecimalFormat("0.000");
+
+                            Double distAteProduto = Double.parseDouble(df.format(returnDistancia).replace(",","."));
+
+                            if(distAteProduto > distDigitada){
+                                listProdutos.remove(i);
+                            }
+                        }
+
+                        ListView listView = (ListView) findViewById(R.id.listViewProdutosPessoaFisica);
+
+                        ProdutosPessoaFisicaAdapter kmProdutosPessoaFisicaAdapter = new ProdutosPessoaFisicaAdapter(ProdutosPessoaFisicaActivity.this, R.layout.list_produtos_pessoa_juridica, listProdutos);
+                        listView.setAdapter(kmProdutosPessoaFisicaAdapter);
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Produto produtoSelecionado = (Produto) parent.getItemAtPosition(position);
+                                Util.SalvarDados("produtoSelecionado", gson.toJson(produtoSelecionado), ProdutosPessoaFisicaActivity.this);
+                                Intent i = new Intent(ProdutosPessoaFisicaActivity.this, InfProdPessoaFisicaActivity.class);
+                                startActivity(i);
+                            }
+                        });
+
+                        dialog.dismiss();
+                    }
+                });
+
+
 
                 break;
 
@@ -155,57 +222,57 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
 
                 break;
 
+            case R.id.filtro_nenhum:
+
+                String listJ = Util.RecuperarUsuario("listaProdutosCategoria", ProdutosPessoaFisicaActivity.this);
+
+                try {
+                    JSONObject object = new JSONObject(listJ);
+                    JSONArray listProdutosJson = object.getJSONArray("lista");
+
+                    listProdutos.clear();
+
+                    for (int i = 0; i < listProdutosJson.length(); i++) {
+                        JSONObject objProduto = listProdutosJson.getJSONObject(i);
+                        objProduto.remove("type");
+                        Produto produto = gson.fromJson(objProduto.toString(), Produto.class);
+
+                        listProdutos.add(produto);
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+               ListView listViewNenhum = (ListView) findViewById(R.id.listViewProdutosPessoaFisica);
+
+                ProdutosPessoaFisicaAdapter NenhumProdutosPessoaFisicaAdapter = new ProdutosPessoaFisicaAdapter(ProdutosPessoaFisicaActivity.this, R.layout.list_produtos_pessoa_juridica, listProdutos);
+                listViewNenhum.setAdapter(NenhumProdutosPessoaFisicaAdapter);
+
+                listViewNenhum.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Produto produtoSelecionado = (Produto) parent.getItemAtPosition(position);
+                        Util.SalvarDados("produtoSelecionado", gson.toJson(produtoSelecionado), ProdutosPessoaFisicaActivity.this);
+                        Intent i = new Intent(ProdutosPessoaFisicaActivity.this, InfProdPessoaFisicaActivity.class);
+                        startActivity(i);
+                    }
+                });
+
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void confirmaFiltroKN(View v){
+    private View.OnClickListener confirmaFiltroKN = new View.OnClickListener() {
 
-        EditText editDistancia = (EditText) v.findViewById(R.id.editDistanciaMaxima);
+        public void onClick(View v) {
 
-        ArrayList<Produto> produtosFiltroKM = new ArrayList<>();
-        String distanciaDigitada = editDistancia.getText().toString();
 
-        Location location = instanciaLocation();
-        Location localLoja = new Location("");
-
-        for(int i = 0; i == listProdutos.size(); i++){
-            String distanciaAteProduto;
-
-            localLoja.setLatitude(Double.parseDouble(listProdutos.get(i).getFk_Pessoa_Juridica().getFk_Localizacao().getLatitude()));
-            localLoja.setLongitude(Double.parseDouble(listProdutos.get(i).getFk_Pessoa_Juridica().getFk_Localizacao().getLongitude()));
-
-            Float returnDistancia = location.distanceTo(localLoja);
-
-            DecimalFormat df = new DecimalFormat("0.000");
-            distanciaAteProduto = df.format(returnDistancia);
-
-            Double distDigitada = Double.parseDouble(distanciaDigitada);
-            Double distAteProduto = Double.parseDouble(distanciaAteProduto);
-
-            if(distAteProduto < distDigitada){
-
-                produtosFiltroKM.add(listProdutos.get(i));
-            }
 
         }
-
-        ListView listView = (ListView) findViewById(R.id.listViewProdutosPessoaFisica);
-
-        ProdutosPessoaFisicaAdapter kmProdutosPessoaFisicaAdapter = new ProdutosPessoaFisicaAdapter(ProdutosPessoaFisicaActivity.this, R.layout.list_produtos_pessoa_juridica, produtosFiltroKM);
-        listView.setAdapter(kmProdutosPessoaFisicaAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Produto produtoSelecionado = (Produto) parent.getItemAtPosition(position);
-                Util.SalvarDados("produtoSelecionado", gson.toJson(produtoSelecionado), ProdutosPessoaFisicaActivity.this);
-                Intent i = new Intent(ProdutosPessoaFisicaActivity.this, InfProdPessoaFisicaActivity.class);
-                startActivity(i);
-            }
-        });
-
-    }
+    };
 
     public Location instanciaLocation(){
         LocationManager locationManager;
@@ -302,6 +369,7 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
 
             if(isConnected) {
                 if (s != null) {
+                    Util.SalvarDados("listaProdutosCategoria", s, ProdutosPessoaFisicaActivity.this);
                     try {
                         JSONObject object = new JSONObject(s);
                         JSONArray listProdutosJson = object.getJSONArray("lista");
@@ -326,6 +394,8 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
                                     startActivity(i);
                                 }
                             });
+
+
                             ProdutosPessoaFisicaAdapter produtosPessoaFisicaAdapter = new ProdutosPessoaFisicaAdapter(ProdutosPessoaFisicaActivity.this, R.layout.list_produtos_pessoa_juridica, listProdutos);
                             listView.setAdapter(produtosPessoaFisicaAdapter);
 
