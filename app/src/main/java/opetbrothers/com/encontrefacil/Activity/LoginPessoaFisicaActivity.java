@@ -49,11 +49,13 @@ import opetbrothers.com.encontrefacil.Util.Util;
 
 public class LoginPessoaFisicaActivity extends AppCompatActivity {
 
+    //region ATRIBUTES
     private CallbackManager callbackManager;
     private LoginButton loginButton;
     private Profile perfil;
     private Pessoa pessoa;
     private PessoaFisica pessoaFisica;
+    //endregion
 
     //region ANDROID METODS
     @Override
@@ -63,17 +65,18 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_pessoa_fisica);
         FacebookSdk.sdkInitialize(getApplicationContext());
 
-
+        //region INSTACIA
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
 
         callbackManager = CallbackManager.Factory.create();
 
+        //endregion
+
+        //region SETA DADOS PARA O BOTAO DO FACEBOOK
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
-
                 GraphRequest request = GraphRequest.newMeRequest( AccessToken.getCurrentAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback(){
 
@@ -83,12 +86,14 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                                 try {
                                     pessoa = new Pessoa();
                                     pessoaFisica = new PessoaFisica();
+
                                     pessoa.setNome(object.getString("first_name"));
                                     pessoa.setSobrenome(object.getString("last_name"));
                                     pessoa.setEmail(object.getString("email"));
                                     pessoa.setTelefone(" ");
-                                    long id = object.getLong("id");
-                                    pessoaFisica.setId_facebook(String.valueOf(id));
+
+                                    pessoaFisica.setId_facebook(String.valueOf(object.getLong("id")));
+
                                     JSONObject picture = new JSONObject(object.getString("picture"));
                                      pessoa.setFoto(picture.getJSONObject("data").getString("url"));
                                     pessoaFisica.setFk_Pessoa(pessoa);
@@ -99,7 +104,7 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "picture,first_name,last_name,email,id");
+                parameters.putString("fields", "picture.width(250).height(250),first_name,last_name,email,id");
                 request.setParameters(parameters);
                 request.executeAsync();
             }
@@ -114,6 +119,7 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                 // App code
             }
         });
+        //endregion
     }
 
     @Override
@@ -141,8 +147,9 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
     }
     //endregion
 
-    //region ASYNC
+    //region WEB SERVICE
     private class SalvarDados extends AsyncTask<PessoaFisica, Void, String> {
+        //region ON PRE EXECUTE
         boolean isConnected = false;
         ProgressDialog progress;
         @Override
@@ -167,7 +174,9 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                 Toast.makeText(LoginPessoaFisicaActivity.this, "Verifique a conexão com a internet...", Toast.LENGTH_SHORT).show();
             }
         }
+        //endregion
 
+        //region DO IN BACKGROUND
         @Override
         protected String doInBackground(PessoaFisica... params) {
             Gson gson = new Gson();
@@ -178,6 +187,7 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                 objectId.remove("type");
                 if(!objectId.getBoolean("ok"))
                 {
+                    //region DOWNLOAD DA IMAGEM DE PERFIL DO FACE
                     InputStream inputStream = new URL(params[0].getFk_Pessoa().getFoto()).openStream();   // Download Image from URL
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);       // Decode Bitmap
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -186,7 +196,7 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                     String bytesEnconded = Base64.encodeToString(byteImage, Base64.DEFAULT);
                     params[0].getFk_Pessoa().setFoto(bytesEnconded);
                     inputStream.close();
-                    String xx = gson.toJson(params[0]);
+                    //endregion
                     String cadastrar = HttpMetods.POST("PessoaFisica/Cadastrar", gson.toJson(params[0]));
                     return cadastrar;
                 }else{
@@ -213,16 +223,18 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                         String json = object.getJSONObject("pessoaFisicaEntity").toString();
                         PessoaFisica pessoaFisica = gson.fromJson(json, PessoaFisica.class);
                         Util.SalvarDados("pessoaFisica", json, LoginPessoaFisicaActivity.this);
-
-                        if(pessoaFisica.getCpf() != null) {
+                        if(pessoaFisica.getCpf() != null)
+                        {
                             Intent i = new Intent(LoginPessoaFisicaActivity.this, MainPessoaFisicaActivity.class);
                             startActivity(i);
                             finish();
-                        }else{
+                        }
+                        else{
                             Intent i = new Intent(LoginPessoaFisicaActivity.this, AdicionarCPFActivity.class);
                             startActivity(i);
                             finish();
                         }
+
                     }else{
                         Toast.makeText(LoginPessoaFisicaActivity.this,"Não foi possivel cadastrar",Toast.LENGTH_LONG).show();
                     }
@@ -242,6 +254,8 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
             }
 
         }
+        //endregion
+
     }
     //endregion
 

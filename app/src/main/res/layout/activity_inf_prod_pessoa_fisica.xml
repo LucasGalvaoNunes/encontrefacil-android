@@ -19,30 +19,16 @@
         android:layout_height="255dp">
 
         <TextView
-            android:id="@+id/textViewDescricao"
-            android:layout_width="337dp"
-            android:layout_height="150dp"
-            android:layout_below="@+id/textViewNomeProduto"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="0.65"
-            android:fontFamily="casual"
-            android:text=" "
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="15sp" />
-
-        <TextView
             android:id="@+id/textViewLoja"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textViewDescricao"
             android:fontFamily="casual"
             android:text="Loja Vendedora"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="20sp"
-            android:onClick="infosLojas"/>
+            android:layout_below="@+id/textViewNomeProduto"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/textViewNomeProduto"
@@ -54,21 +40,30 @@
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/textViewDescricao"
+            android:layout_width="337dp"
+            android:layout_height="150dp"
+            android:layout_weight="0.65"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="15sp"
+            android:layout_below="@+id/textViewLoja"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btnChamaNav"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
-            android:layout_above="@+id/textViewLoja"
-            android:layout_alignEnd="@+id/textViewDescricao"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginBottom="17dp"
+            android:layout_marginEnd="14dp"
+            app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
     </RelativeLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
 
 </LinearLayout>

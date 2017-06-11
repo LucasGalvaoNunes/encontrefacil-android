@@ -32,6 +32,7 @@ import opetbrothers.com.encontrefacil.Model.Pessoa;
 import opetbrothers.com.encontrefacil.Model.PessoaFisica;
 import opetbrothers.com.encontrefacil.R;
 import opetbrothers.com.encontrefacil.Util.HttpMetods;
+import opetbrothers.com.encontrefacil.Util.PatternsUtil;
 import opetbrothers.com.encontrefacil.Util.Util;
 
 public class MeusDadosPessoaFisicaActivity extends AppCompatActivity {
@@ -58,6 +59,8 @@ public class MeusDadosPessoaFisicaActivity extends AppCompatActivity {
         editTextTelefone = (EditText) findViewById(R.id.editTextTelefone);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextCPF = (EditText) findViewById(R.id.editTextCPF);
+        editTextTelefone.addTextChangedListener(new PatternsUtil(editTextTelefone).getpPatternTelefone());
+        editTextCPF.addTextChangedListener(new PatternsUtil(editTextCPF).getpPatternCPF());
         //endregion
 
         String jsonPrefe = Util.RecuperarUsuario("pessoaFisica", MeusDadosPessoaFisicaActivity.this);

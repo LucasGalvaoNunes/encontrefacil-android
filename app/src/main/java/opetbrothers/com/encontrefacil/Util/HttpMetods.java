@@ -135,6 +135,7 @@ public class HttpMetods {
             urlConnection.setRequestMethod("DELETE");
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf8");
 
             DataOutputStream outputStream = new DataOutputStream(urlConnection.getOutputStream());
 

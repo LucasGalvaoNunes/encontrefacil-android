@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.security.MessageDigest;
 
 import opetbrothers.com.encontrefacil.Model.PessoaJuridica;
 
@@ -62,6 +63,22 @@ public class Util {
         SharedPreferences shared = pActivity.getSharedPreferences(pNomePreferences,pActivity.MODE_PRIVATE);
         String string_temp = shared.getString("json","");
         return string_temp;
+    }
+
+    public static String CodificarSenha(String pSenha){
+        StringBuilder hexString = new StringBuilder();
+        try{
+            MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
+            byte messageDigest[] = algorithm.digest(pSenha.getBytes("UTF-8"));
+            for (byte b : messageDigest) {
+                hexString.append(String.format("%02X", 0xFF & b));
+            }
+
+        }catch (Exception e){
+
+        }
+        String senha = hexString.toString();
+        return senha;
     }
 
 

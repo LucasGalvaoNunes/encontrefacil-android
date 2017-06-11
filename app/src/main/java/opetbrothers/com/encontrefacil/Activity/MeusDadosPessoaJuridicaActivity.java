@@ -10,9 +10,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -35,6 +38,7 @@ import opetbrothers.com.encontrefacil.Model.Pessoa;
 import opetbrothers.com.encontrefacil.Model.PessoaJuridica;
 import opetbrothers.com.encontrefacil.R;
 import opetbrothers.com.encontrefacil.Util.HttpMetods;
+import opetbrothers.com.encontrefacil.Util.PatternsUtil;
 import opetbrothers.com.encontrefacil.Util.Util;
 
 public class MeusDadosPessoaJuridicaActivity extends AppCompatActivity {
@@ -50,11 +54,13 @@ public class MeusDadosPessoaJuridicaActivity extends AppCompatActivity {
     EditText editConfirmaSenha;
     EditText editTelefone;
     EditText editCnpj;
-    //endregion
 
     PessoaJuridica pessoaJuridica;
     private List<Categoria_Loja> categorias;
+    //endregion
 
+
+    //region ANDROID METODS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +68,7 @@ public class MeusDadosPessoaJuridicaActivity extends AppCompatActivity {
         categorias = new ArrayList<Categoria_Loja>();
         new PegarCategorias().execute();
 
+        //region INSTANCIA DAS VARIAVEIS
         imagemLoja = (ImageView) findViewById(R.id.imageLojaAtualiza);
         spinnerCategoriasLoja = (Spinner) findViewById(R.id.spinnerCategoriaAtualiza);
         editRazaoSocial = (EditText) findViewById(R.id.editRazaoSocialAtualiza);
@@ -74,6 +81,11 @@ public class MeusDadosPessoaJuridicaActivity extends AppCompatActivity {
         editCnpj = (EditText) findViewById(R.id.editCnpjAtualiza);
         pessoaJuridica = new PessoaJuridica();
 
+        editTelefone.addTextChangedListener(new PatternsUtil(editTelefone).getpPatternTelefone());
+        editCnpj.addTextChangedListener(new PatternsUtil(editCnpj).getpPatternCNPJ());
+        //endregion
+
+        //region RECEBE DADOS
         String jsonPrefe = Util.RecuperarUsuario("pessoaJuridica", MeusDadosPessoaJuridicaActivity.this);
         Gson gson = new Gson();
         pessoaJuridica = gson.fromJson(jsonPrefe, PessoaJuridica.class);
@@ -83,7 +95,6 @@ public class MeusDadosPessoaJuridicaActivity extends AppCompatActivity {
             Bitmap bitmap = BitmapFactory.decodeByteArray(foto, 0, foto.length);
             imagemLoja.setImageBitmap(bitmap);
         }
-        //Categoria//
 
         editRazaoSocial.setText(pessoaJuridica.getRazao_Social());
         editEmail.setText(pessoaJuridica.getFk_Pessoa().getEmail());
@@ -91,6 +102,9 @@ public class MeusDadosPessoaJuridicaActivity extends AppCompatActivity {
         editSobrenome.setText(pessoaJuridica.getFk_Pessoa().getSobrenome());
         editTelefone.setText(pessoaJuridica.getFk_Pessoa().getTelefone());
         editCnpj.setText(pessoaJuridica.getCnpj());
+        //endregion
+
+
 
     }
 
@@ -104,8 +118,26 @@ public class MeusDadosPessoaJuridicaActivity extends AppCompatActivity {
         }
     }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_padrao,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
 
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //endregion
+
+    //region BUTTONS
     public void AtualizaButton(View v)
     {
         boolean isOk = true;
@@ -181,7 +213,7 @@ public class MeusDadosPessoaJuridicaActivity extends AppCompatActivity {
             new SalvarDados().execute(pessoaJuridica);
         }
     }
-
+    //endregion
 
     //region WEBSERVICE
     private class SalvarDados extends AsyncTask<PessoaJuridica, Void, String> {
@@ -341,6 +373,7 @@ public class MeusDadosPessoaJuridicaActivity extends AppCompatActivity {
     }
     //endregion
 
+    //region OTHERS METODS
     public void TirarFotoAtualiza(View v)
     {
         Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -349,5 +382,5 @@ public class MeusDadosPessoaJuridicaActivity extends AppCompatActivity {
             startActivityForResult(intentCamera, REQUEST_IMAGE_CAPTURE);
         }
     }
-
+    //endregion
 }

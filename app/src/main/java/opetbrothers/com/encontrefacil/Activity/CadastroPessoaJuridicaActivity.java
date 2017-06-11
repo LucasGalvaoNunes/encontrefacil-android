@@ -315,13 +315,25 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements
         if (editCnpj.getText().toString().length() == 0) {
             editCnpj.setError("CNPJ é obrigatorio!");
             return;
+        }else if(editCnpj.getText().toString().length() < 18)
+        {
+            editCnpj.setError("CNPJ é inválido!");
+            return;
         }
         if (editEmail.getText().toString().length() == 0) {
             editEmail.setError("Email é obrigatorio!");
             return;
+        }else if(!editEmail.getText().toString().contains("@"))
+        {
+            editEmail.setError("Email é inválido!");
+            return;
         }
         if (editTelefone.getText().toString().length() == 0) {
             editTelefone.setError("Telefone é obrigatorio!");
+            return;
+        }else if(editTelefone.getText().toString().length() < 13)
+        {
+            editTelefone.setError("Telefone é inválido!");
             return;
         }
         if (editNome.getText().toString().length() == 0) {
@@ -357,7 +369,7 @@ public class CadastroPessoaJuridicaActivity extends AppCompatActivity implements
         juridica.getFk_Pessoa().setTelefone(editTelefone.getText().toString());
         juridica.setCnpj(editCnpj.getText().toString());
         juridica.setRazao_Social(editRazaoSocial.getText().toString());
-        juridica.setSenha(editSenha.getText().toString());
+        juridica.setSenha(Util.CodificarSenha(editSenha.getText().toString()));
         if(juridica.getFk_Localizacao() != null)
         {
             Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());

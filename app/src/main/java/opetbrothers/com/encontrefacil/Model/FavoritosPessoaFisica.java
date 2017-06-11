@@ -15,8 +15,7 @@ public class FavoritosPessoaFisica implements Serializable {
     public FavoritosPessoaFisica() {
     }
 
-    public FavoritosPessoaFisica(int id_Favoritos, PessoaFisica fk_Pessoa_Fisica, Produto fk_Produto) {
-        this.id_Favoritos = id_Favoritos;
+    public FavoritosPessoaFisica(PessoaFisica fk_Pessoa_Fisica, Produto fk_Produto) {
         this.fk_Pessoa_Fisica = fk_Pessoa_Fisica;
         this.fk_Produto = fk_Produto;
     }

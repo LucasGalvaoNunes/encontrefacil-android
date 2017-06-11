@@ -60,7 +60,7 @@
 
     </LinearLayout>
 
-    <ListView
+    <opetbrothers.com.encontrefacil.Util.SwipeToRefreshListView
         android:id="@+id/listProdutosMainPessoaFisica"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

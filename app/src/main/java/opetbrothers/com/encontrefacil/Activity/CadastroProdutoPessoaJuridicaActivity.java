@@ -54,10 +54,12 @@ import opetbrothers.com.encontrefacil.Model.Produto;
 import opetbrothers.com.encontrefacil.R;
 import opetbrothers.com.encontrefacil.Util.HttpMetods;
 import opetbrothers.com.encontrefacil.Util.PackageManagerUtils;
+import opetbrothers.com.encontrefacil.Util.PatternsUtil;
 import opetbrothers.com.encontrefacil.Util.Util;
 
 public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
 
+    //region ATRIBUTOS
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final String ANDROID_CERT_HEADER = "X-Android-Cert";
     private static final String ANDROID_PACKAGE_HEADER = "X-Android-Package";
@@ -68,6 +70,7 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
     EditText editNome;
     EditText editDescricao;
     EditText editPreco;
+    //endregion
 
     //region ANDROID METODS
     @Override
@@ -75,21 +78,21 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_produto_pessoa_juridica);
 
+        //region INSTANCIA COISAS DA VIEW
         editCategoriaProduto = (EditText) findViewById(R.id.editCategoriaProduto);
         editMarca = (EditText) findViewById(R.id.editMarcaProduto);
         editNome = (EditText) findViewById(R.id.editNomeProduto);
         editDescricao = (EditText) findViewById(R.id.editDescricaoProduto);
         editPreco = (EditText) findViewById(R.id.editPrecoProduto);
+        editPreco.addTextChangedListener(new PatternsUtil(editPreco).getpPatternPreco());
         imagemProduto = (ImageView) findViewById(R.id.imageCadastroProduto);
-
+        //endregion
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_padrao,menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -117,6 +120,7 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
 
     //region WEBSERVICE
     private class GoogleVisionAPI extends AsyncTask<Bitmap, Void, BatchAnnotateImagesResponse> {
+        //region OnPreExecute
         boolean isConnected = false;
         ProgressDialog progress;
         @Override
@@ -141,7 +145,9 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
                 Toast.makeText(CadastroProdutoPessoaJuridicaActivity.this, "Verifique a conexão com a internet...", Toast.LENGTH_SHORT).show();
             }
         }
+        //endregion
 
+        //region DoInBackground
         @Override
         protected BatchAnnotateImagesResponse doInBackground(final Bitmap... params) {
             try {
@@ -232,19 +238,27 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
                 List<EntityAnnotation> textAnnotations = response.getResponses().get(0).getTextAnnotations();
                 List<EntityAnnotation> labelAnnotations = response.getResponses().get(0).getLabelAnnotations();
                 if (textAnnotations != null) {
-                    editNome.setText(textAnnotations.get(0).getDescription().replace("\n", " "));
+                    String textoNormalizado =  textAnnotations.get(0).getDescription().substring(0,1)
+                                                .toUpperCase() + textAnnotations.get(0).getDescription().substring(1);
+                    editNome.setText(textoNormalizado.replace("\n", " "));
                 }
                 if(labelAnnotations != null)
                 {
-                    editCategoriaProduto.setText(labelAnnotations.get(0).getDescription());
+                    String textoNormalizado = labelAnnotations.get(0).getDescription().substring(0,1)
+                            .toUpperCase() + labelAnnotations.get(0).getDescription().substring(1);
+                    editCategoriaProduto.setText(textoNormalizado);
                 }
                 progress.dismiss();
             }
 
         }
+        //endregion
+
     }
 
     private class SalvarDados extends AsyncTask<Produto, Void, String> {
+
+        //region OnPreExecute
         boolean isConnected = false;
         ProgressDialog progress;
         @Override
@@ -269,7 +283,9 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
                 Toast.makeText(CadastroProdutoPessoaJuridicaActivity.this, "Verifique a conexão com a internet...", Toast.LENGTH_SHORT).show();
             }
         }
+        //endregion
 
+        //region DoInBackgroud
         @Override
         protected String doInBackground(Produto... params) {
             Gson gson = new Gson();
@@ -295,10 +311,10 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
                             String json = object.getJSONObject("produtoEntity").toString();
                             Produto produto = gson.fromJson(json, Produto.class);
                             ClearEdits();
-                            startActivity(new Intent(CadastroProdutoPessoaJuridicaActivity.this,MeusProdutosPessoaJuridicaActivity.class));
+                            Intent activityMeusProd = new Intent(new Intent(CadastroProdutoPessoaJuridicaActivity.this,MeusProdutosPessoaJuridicaActivity.class));
+                            startActivity(activityMeusProd);
+                            finish();
                         }
-
-
                     }catch (Exception e)
                     {
                         Toast.makeText(CadastroProdutoPessoaJuridicaActivity.this,"Não foi possivel se conectar",Toast.LENGTH_LONG).show();
@@ -309,6 +325,7 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
             }
 
         }
+        //endregion
     }
     //endregion
 
@@ -316,7 +333,7 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
     public void CadastrarProduto(View v){
         //region VALIDACAO
         if (editCategoriaProduto.getText().toString().length() == 0) {
-            editCategoriaProduto.setError("É obrigatorio!");
+            editCategoriaProduto.setError("É obrigatorio!, tente tirar novamente a foto novamente!");
             return;
         }
         if (editMarca.getText().toString().length() == 0) {
@@ -337,6 +354,7 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
         }
         //endregion
 
+        //region Recebe a image e codifica para Base64
         imagemProduto.buildDrawingCache();
         Bitmap bmap = imagemProduto.getDrawingCache();
 
@@ -344,11 +362,15 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
         bmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] byteImage = stream.toByteArray();
         String bytesEnconded = Base64.encodeToString(byteImage,Base64.DEFAULT);
+        //endregion
 
+        //region Recebe os dados da loja
         String jsonPrefe = Util.RecuperarUsuario("pessoaJuridica", CadastroProdutoPessoaJuridicaActivity.this);
         Gson gson = new Gson();
         PessoaJuridica pessoaJuridica = gson.fromJson(jsonPrefe, PessoaJuridica.class);
+        //endregion
 
+        //region Adiciona os dados no produto
         Produto produto = new Produto(new Categoria_Produto(editCategoriaProduto.getText().toString()),
                 new Marca_Produto(editMarca.getText().toString()),
                 pessoaJuridica,
@@ -357,6 +379,8 @@ public class CadastroProdutoPessoaJuridicaActivity extends AppCompatActivity {
                 editPreco.getText().toString(),
                 bytesEnconded,
                 new Timestamp(System.currentTimeMillis()));
+        //endregion
+
         new SalvarDados().execute(produto);
 
     }

@@ -170,7 +170,7 @@ public class LoginPessoaJuridicaActivity extends AppCompatActivity {
         ),
                 new Categoria_Loja(),
                 new Localizacao(),
-                editSenha.getText().toString(),
+                Util.CodificarSenha(editSenha.getText().toString()),
                 "",
                 ""
         );

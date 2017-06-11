@@ -54,6 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:maxLength="13"
         android:hint="Telefone..."
         android:inputType="textPersonName" />
 
@@ -62,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:maxLength="14"
         android:hint="CPF..."
         android:inputType="textPersonName" />
 

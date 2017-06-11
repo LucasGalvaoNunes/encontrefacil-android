@@ -14,7 +14,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/imageViewPerfilFisica"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
@@ -25,7 +25,7 @@
         android:id="@+id/textViewNomePessoaFisicaLogada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView7"
+        android:layout_below="@+id/imageViewPerfilFisica"
         android:layout_centerHorizontal="true"
         android:fontFamily="casual"
         android:text=""
@@ -47,7 +47,7 @@
         android:layout_height="50dp"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
         android:layout_above="@+id/textViewNomePessoaFisicaLogada"
-        android:layout_alignEnd="@+id/imageView7"
+        android:layout_alignEnd="@+id/imageViewPerfilFisica"
         android:onClick="Sair"/>
 
 </RelativeLayout>

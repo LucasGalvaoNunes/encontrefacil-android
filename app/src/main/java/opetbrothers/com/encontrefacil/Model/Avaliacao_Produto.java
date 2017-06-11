@@ -17,8 +17,8 @@ public class Avaliacao_Produto implements Serializable {
     public Avaliacao_Produto() {
     }
 
-    public Avaliacao_Produto(int id_Avaliacao_Produto, Produto fk_Produto, PessoaFisica fk_Pessoa_Fisica, String comentario, int nota) {
-        this.id_Avaliacao_Produto = id_Avaliacao_Produto;
+    public Avaliacao_Produto(Produto fk_Produto, PessoaFisica fk_Pessoa_Fisica, String comentario, int nota) {
+
         this.fk_Produto = fk_Produto;
         this.fk_Pessoa_Fisica = fk_Pessoa_Fisica;
         this.comentario = comentario;

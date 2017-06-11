@@ -77,7 +77,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="CNPJ..."
-            android:inputType="textPersonName" />
+            android:inputType="number"
+            android:maxLength="18" />
 
         <EditText
             android:id="@+id/editRazaoSocialAtualiza"
@@ -107,12 +108,12 @@
         android:id="@+id/editTextTelefoneAtualiza"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLength="12"
         android:layout_alignStart="@+id/editEmail"
         android:layout_below="@+id/imageView5"
         android:ems="10"
         android:hint="Telefone..."
-        android:inputType="textPersonName"
+        android:inputType="number"
+        android:maxLength="13"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="234dp" />
 

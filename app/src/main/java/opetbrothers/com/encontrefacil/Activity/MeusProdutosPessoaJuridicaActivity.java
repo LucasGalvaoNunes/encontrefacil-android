@@ -18,28 +18,44 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import opetbrothers.com.encontrefacil.Adapters.ProdutosPessoaFisicaAdapter;
 import opetbrothers.com.encontrefacil.Adapters.ProdutosPessoaJuridicaAdapter;
 import opetbrothers.com.encontrefacil.Model.PessoaJuridica;
 import opetbrothers.com.encontrefacil.Model.Produto;
+import opetbrothers.com.encontrefacil.Model.ProdutoDestaque;
 import opetbrothers.com.encontrefacil.R;
 import opetbrothers.com.encontrefacil.Util.HttpMetods;
+import opetbrothers.com.encontrefacil.Util.PatternsUtil;
 import opetbrothers.com.encontrefacil.Util.Util;
 
 public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
 
+    //region ATRIBUTOS
+    AlertDialog dialogProdutos;
+    PessoaJuridica pessoaJuridica;
+    Produto produtoRecuperado;
+
+    EditText editNomeAtualizacao;
+    EditText editDescricaoAtualizacao;
+    EditText editPrecoAtualizacao;
+    SeekBar seekBar;
+    //endregion
 
     //region ANDROID METODS
     @Override
@@ -47,9 +63,15 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meus_produtos_pessoa_juridica);
 
+        //region INSTANCIAS
+        pessoaJuridica = new PessoaJuridica();
+        produtoRecuperado = new Produto();
         String jsonPrefe = Util.RecuperarUsuario("pessoaJuridica", MeusProdutosPessoaJuridicaActivity.this);
         Gson gson = new Gson();
-        PessoaJuridica pessoaJuridica = gson.fromJson(jsonPrefe, PessoaJuridica.class);
+        pessoaJuridica = gson.fromJson(jsonPrefe, PessoaJuridica.class);
+        //endregion
+
+        //Puxa os produtos da loja
         new PuxarProdutos().execute(pessoaJuridica.getId_PessoaJuridica());
     }@Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -73,6 +95,8 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
 
     //region  WEBSERVICE
     private class PuxarProdutos extends AsyncTask<Integer, Void, String> {
+
+        //region onPREEXECUTE
         boolean isConnected = false;
         ProgressDialog progress;
         @Override
@@ -97,7 +121,9 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
                 Toast.makeText(MeusProdutosPessoaJuridicaActivity.this, "Verifique a conexão com a internet...", Toast.LENGTH_SHORT).show();
             }
         }
+        //endregion
 
+        //region DO IN BACKGROUND
         @Override
         protected String doInBackground(Integer... params) {
             String produtos = HttpMetods.GET("Produto/PorLoja/" + params[0].toString());
@@ -115,6 +141,7 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
                     object.remove("type");
                     if(object.getBoolean("ok"))
                     {
+                        //region RECEBE OS DADOS DO JSON
                         Gson gson = new Gson();
                         List<Produto> produtos = new ArrayList<Produto>();
                         for(int i =0; i < object.getJSONArray("lista").length();i++)
@@ -123,6 +150,9 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
                             Produto pessoaJuridica = gson.fromJson(json, Produto.class);
                             produtos.add(pessoaJuridica);
                         }
+                        //endregion
+
+                        //region SETA A LISTVIEW
                         ListView listView = (ListView) findViewById(R.id.listViewMeusProdPessoaJuridica);
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             //            @Override
@@ -131,8 +161,10 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
                                     new  PuxarProdutoEspecifico().execute(produto.getId_Produto());
                             }
                         });
-                        ProdutosPessoaJuridicaAdapter produtosPessoaJuridicaAdapter = new ProdutosPessoaJuridicaAdapter(MeusProdutosPessoaJuridicaActivity.this,R.layout.list_produtos_pessoa_juridica, produtos);
+                        ProdutosPessoaJuridicaAdapter produtosPessoaJuridicaAdapter = new ProdutosPessoaJuridicaAdapter(
+                                MeusProdutosPessoaJuridicaActivity.this,R.layout.list_produtos_pessoa_juridica, produtos);
                         listView.setAdapter(produtosPessoaJuridicaAdapter);
+                        //endregion
                     }else{
                         Toast.makeText(MeusProdutosPessoaJuridicaActivity.this,"Você não tem nada cadastrado ainda!",Toast.LENGTH_LONG).show();
                     }
@@ -144,9 +176,12 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
             }
 
         }
+        //endregion
     }
 
     private class PuxarProdutoEspecifico extends AsyncTask<Integer, Void, String> {
+
+        //region ON PRE EXECUTE
         boolean isConnected = false;
         ProgressDialog progress;
         @Override
@@ -171,7 +206,9 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
                 Toast.makeText(MeusProdutosPessoaJuridicaActivity.this, "Verifique a conexão com a internet...", Toast.LENGTH_SHORT).show();
             }
         }
+        //endregion
 
+        //region DO IN BACKGROUND
         @Override
         protected String doInBackground(Integer... params) {
             String produtos = HttpMetods.GET("Produto/Get/" + params[0].toString());
@@ -191,32 +228,268 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
                     {
                         Gson gson = new Gson();
                         String json = object.getJSONObject("produtoEntity").toString();
-                        Produto prod = gson.fromJson(json, Produto.class);
+                        produtoRecuperado = gson.fromJson(json, Produto.class);
+
+                        //region CRIA O ALERT DIALOG
                         AlertDialog.Builder mBuilder = new AlertDialog.Builder(MeusProdutosPessoaJuridicaActivity.this);
                         View mView = getLayoutInflater().inflate(R.layout.dialog_inf_prod_pessoa_juridica, null);
-                        EditText editCategoriaProduto = (EditText) mView.findViewById(R.id.editDialogCateoriaProd);
-                        EditText editMarca = (EditText) mView.findViewById(R.id.editDialogMarcaProd);
-                        EditText editNome = (EditText) mView.findViewById(R.id.editDialogNomeProd);
-                        EditText editDescricao = (EditText) mView.findViewById(R.id.editDialogDescricaoProd);
-                        EditText editPreco = (EditText) mView.findViewById(R.id.editDialogPrecoProd);
+                        //region SETA AS VARIAVEIS
+                        editNomeAtualizacao = (EditText) mView.findViewById(R.id.editDialogNomeProd);
+                        editDescricaoAtualizacao = (EditText) mView.findViewById(R.id.editDialogDescricaoProd);
+                        editPrecoAtualizacao = (EditText) mView.findViewById(R.id.editDialogPrecoProd);
+                        editPrecoAtualizacao.addTextChangedListener(new PatternsUtil(editPrecoAtualizacao).getpPatternPreco());
                         ImageView fotoProd = (ImageView) mView.findViewById(R.id.imagemAtualizaProd);
+                        seekBar = (SeekBar) mView.findViewById(R.id.seekBarExposicao);
+                        //endregion
 
 
-
-                        editCategoriaProduto.setText(prod.getFk_Categoria_Produto().getNome());
-                        editMarca.setText(prod.getFk_Marca_Produto().getNome());
-                        editNome.setText(prod.getNome());
-                        editDescricao.setText(prod.getDescricao());
-                        editPreco.setText(prod.getPreco());
-                        byte[] foto = Base64.decode(prod.getFoto(), Base64.DEFAULT);
+                        //region ADCIONA OS VALORES
+                        editNomeAtualizacao.setText(produtoRecuperado.getNome());
+                        editDescricaoAtualizacao.setText(produtoRecuperado.getDescricao());
+                        editPrecoAtualizacao.setText(produtoRecuperado.getPreco());
+                        byte[] foto = Base64.decode(produtoRecuperado.getFoto(), Base64.DEFAULT);
                         Bitmap bitmap = BitmapFactory.decodeByteArray(foto, 0, foto.length);
                         fotoProd.setImageBitmap(bitmap);
+                        //endregion
+
+                        //region ADICIONA OS METODOS DOS BOTOES
+                        Button btnAtualiza = (Button) mView.findViewById(R.id.btnSalvarAtualizacao);
+                        btnAtualiza.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                //region VALIDACAO
+                                if (editNomeAtualizacao.getText().toString().length() == 0) {
+                                    editNomeAtualizacao.setError("É obrigatorio!");
+                                    return;
+                                }
+                                if (editDescricaoAtualizacao.getText().toString().length() == 0) {
+                                    editDescricaoAtualizacao.setError("É obrigatorio!");
+                                    return;
+                                }
+                                if (editPrecoAtualizacao.getText().toString().length() == 0) {
+                                    editPrecoAtualizacao.setError("É obrigatorio!");
+                                    return;
+                                }
+                                //endregion
+
+                                produtoRecuperado.setData_Publicacao(new Timestamp(System.currentTimeMillis()));
+                                produtoRecuperado.setNome(editNomeAtualizacao.getText().toString());
+                                produtoRecuperado.setDescricao(editDescricaoAtualizacao.getText().toString());
+                                produtoRecuperado.setPreco(editPrecoAtualizacao.getText().toString());
+
+                                new Atualizar().execute(produtoRecuperado);
+                            }
+                        });
+                        Button btnExcluir = (Button) mView.findViewById(R.id.btnExcluirAtualizacao);
+                        btnExcluir.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                new Excluir().execute(produtoRecuperado);
+                            }
+                        });
+                        Button btnImpulsionar = (Button) mView.findViewById(R.id.btnImpulsionar);
+                        btnImpulsionar.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                Calendar cal = Calendar.getInstance();
+
+                                cal.add(Calendar.DATE, + 20);
+                                ProdutoDestaque produtoDestaque = new ProdutoDestaque();
+
+                                produtoDestaque.setFk_produto(produtoRecuperado);
+                                produtoDestaque.setData_entrada(new Timestamp(System.currentTimeMillis()));
+                                produtoDestaque.setData_saida(new Timestamp(cal.getTimeInMillis()));
+                                produtoDestaque.setExposicao(seekBar.getProgress());
+                                new Impulsionar().execute(produtoDestaque);
+                            }
+                        });
+                        //endregion
 
                         mBuilder.setView(mView);
-                        AlertDialog dialog = mBuilder.create();
-                        dialog.show();
+                        dialogProdutos = mBuilder.create();
+                        dialogProdutos.show();
+                        //endregion
+                    }
+                }catch (Exception e)
+                {
+                    Toast.makeText(MeusProdutosPessoaJuridicaActivity.this,"Não foi possivel se conectar",Toast.LENGTH_LONG).show();
+                }
+                progress.dismiss();
+            }
+
+        }
+        //endregion
+    }
+
+    private class Atualizar extends AsyncTask<Produto, Void, String> {
+        //region ON PRE EXECUTE
+        boolean isConnected = false;
+        ProgressDialog progress;
+        @Override
+        protected void onPreExecute()
+        {
+
+            ConnectivityManager cm =
+                    (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            isConnected = activeNetwork != null &&
+                    activeNetwork.isConnectedOrConnecting();
+
+            if(isConnected) {
+                progress = new ProgressDialog(MeusProdutosPessoaJuridicaActivity.this);
+                progress.setMessage("Carregando...");
+                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progress.setProgress(0);
+                progress.show();
+            }
+            else{
+                Toast.makeText(MeusProdutosPessoaJuridicaActivity.this, "Verifique a conexão com a internet...", Toast.LENGTH_SHORT).show();
+            }
+        }
+        //endregion
+        //region DO IN BACKGROUND
+        @Override
+        protected String doInBackground(Produto... params) {
+            Gson gson = new Gson();
+            String produtos = HttpMetods.PUT("Produto/Atualizar", gson.toJson(params[0]));
+            return produtos;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(isConnected)
+            {
+
+                try{
+                    JSONObject object = new JSONObject(s);
+                    object.remove("type");
+                    if(object.getBoolean("ok"))
+                    {
+                        new PuxarProdutos().execute(pessoaJuridica.getId_PessoaJuridica());
+                        dialogProdutos.cancel();
+                        Toast.makeText(MeusProdutosPessoaJuridicaActivity.this,"Alterado com sucesso!",Toast.LENGTH_LONG).show();
                     }else{
-                        Toast.makeText(MeusProdutosPessoaJuridicaActivity.this,"Você não tem nada cadastrado ainda!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MeusProdutosPessoaJuridicaActivity.this,"Não foi possivel atualizar os dados, sintimos muito!",Toast.LENGTH_LONG).show();
+                    }
+                }catch (Exception e)
+                {
+                    Toast.makeText(MeusProdutosPessoaJuridicaActivity.this,"Não foi possivel se conectar",Toast.LENGTH_LONG).show();
+                }
+                progress.dismiss();
+            }
+
+        }
+        //endregion
+    }
+
+    private class Excluir extends AsyncTask<Produto, Void, String> {
+        boolean isConnected = false;
+        ProgressDialog progress;
+        @Override
+        protected void onPreExecute()
+        {
+
+            ConnectivityManager cm =
+                    (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            isConnected = activeNetwork != null &&
+                    activeNetwork.isConnectedOrConnecting();
+
+            if(isConnected) {
+                progress = new ProgressDialog(MeusProdutosPessoaJuridicaActivity.this);
+                progress.setMessage("Carregando...");
+                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progress.setProgress(0);
+                progress.show();
+            }
+            else{
+                Toast.makeText(MeusProdutosPessoaJuridicaActivity.this, "Verifique a conexão com a internet...", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(Produto... params) {
+            Gson gson = new Gson();
+            String produtos = HttpMetods.DELETE("Produto/Excluir", gson.toJson(params[0]));
+            return produtos;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(isConnected)
+            {
+
+                try{
+                    JSONObject object = new JSONObject(s);
+                    object.remove("type");
+                    if(object.getBoolean("ok"))
+                    {
+                        new PuxarProdutos().execute(pessoaJuridica.getId_PessoaJuridica());
+                        dialogProdutos.cancel();
+                        Toast.makeText(MeusProdutosPessoaJuridicaActivity.this,"Excluido com sucesso!",Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(MeusProdutosPessoaJuridicaActivity.this,"Não foi possivel atualizar os dados, sintimos muito!",Toast.LENGTH_LONG).show();
+                    }
+                }catch (Exception e)
+                {
+                    Toast.makeText(MeusProdutosPessoaJuridicaActivity.this,"Não foi possivel se conectar",Toast.LENGTH_LONG).show();
+                }
+                progress.dismiss();
+            }
+
+        }
+    }
+
+    private class Impulsionar extends AsyncTask<ProdutoDestaque, Void, String> {
+        boolean isConnected = false;
+        ProgressDialog progress;
+        @Override
+        protected void onPreExecute()
+        {
+
+            ConnectivityManager cm =
+                    (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            isConnected = activeNetwork != null &&
+                    activeNetwork.isConnectedOrConnecting();
+
+            if(isConnected) {
+                progress = new ProgressDialog(MeusProdutosPessoaJuridicaActivity.this);
+                progress.setMessage("Carregando...");
+                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progress.setProgress(0);
+                progress.show();
+            }
+            else{
+                Toast.makeText(MeusProdutosPessoaJuridicaActivity.this, "Verifique a conexão com a internet...", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(ProdutoDestaque... params) {
+            Gson gson = new Gson();
+            String produtos = HttpMetods.POST("ProdutoDestaque/Cadastrar", gson.toJson(params[0]));
+            return produtos;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(isConnected)
+            {
+
+                try{
+                    JSONObject object = new JSONObject(s);
+                    object.remove("type");
+                    if(object.getBoolean("ok"))
+                    {
+                        new PuxarProdutos().execute(pessoaJuridica.getId_PessoaJuridica());
+                        dialogProdutos.cancel();
+                        Toast.makeText(MeusProdutosPessoaJuridicaActivity.this,"Impulsionado com sucesso!",Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(MeusProdutosPessoaJuridicaActivity.this,"Voce ja impulsionou este produto!",Toast.LENGTH_LONG).show();
                     }
                 }catch (Exception e)
                 {
@@ -228,6 +501,4 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
         }
     }
     //endregion
-
-
 }

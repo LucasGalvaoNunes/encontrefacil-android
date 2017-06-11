@@ -45,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:enabled="false"
             android:ems="10"
             android:hint="Categoria"
             android:inputType="textPersonName"
@@ -93,7 +94,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Preço..."
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="234dp" />

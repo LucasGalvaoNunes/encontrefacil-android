@@ -123,7 +123,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.MainPessoaJuridicaActivity" />
         </activity>
-        <activity android:name=".Activity.MeusDadosPessoaJuridicaActivity" />
+        <activity android:name=".Activity.MeusDadosPessoaJuridicaActivity"
+            android:parentActivityName=".Activity.MainPessoaJuridicaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainPessoaJuridicaActivity" />
+        </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
