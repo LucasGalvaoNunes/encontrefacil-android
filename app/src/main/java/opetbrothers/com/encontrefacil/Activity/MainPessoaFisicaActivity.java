@@ -134,12 +134,6 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
             local.setEstado(addresses.get(0).getAdminArea());
             local.setCidade(addresses.get(0).getLocality());
 
-            Location dois = new Location("");
-            dois.setLatitude(-25.4437563);
-            dois.setLongitude(-49.2699716);
-
-            //Float xxx = location.distanceTo(dois);
-
             new CarregaDestaques().execute(local);
 
         }catch (IOException e){
@@ -214,10 +208,6 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
                         produto.setDescricao("Tenis da adidas preto");
                         produto.setPreco("R$:120,00");
                         listProdutos.add(produto);
-                        produto.setNome("Tenis Nike");
-                        produto.setDescricao("Tenis da Nike preto");
-                        produto.setPreco("R$:120,00");
-                        listProdutos.add(produto);
 
                         ListView listViewProdutos = (ListView) findViewById(R.id.listProdutosMainPessoaFisica);
 
@@ -265,18 +255,6 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
     @Override
     public void onProviderDisabled(String provider) {
 
-    }
-
-    private class produtosDestaque extends AsyncTask<Void, Void, String>{
-
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-
-
-            return null;
-        }
     }
 
     @Override
@@ -328,10 +306,10 @@ public class MainPessoaFisicaActivity extends AppCompatActivity implements Navig
 
     public void BuscarProduto(View v)
     {
-        EditText editbuscaProduto;
-        editbuscaProduto = (EditText) findViewById(R.id.editText9);
+        EditText editbuscaProduto = (EditText) findViewById(R.id.editTNomeProduto);
 
         Intent intent = new Intent(MainPessoaFisicaActivity.this, ProdutosPessoaFisicaActivity.class);
+        intent.putExtra("nomeProduto", editbuscaProduto.getText().toString());
         startActivity(intent);
     }
 

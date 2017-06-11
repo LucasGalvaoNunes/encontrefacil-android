@@ -108,7 +108,6 @@ public class CategoriasProdutosPessoaFisicaActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             if(isConnected) {
-                if (s != null) {
                     ArrayList<Categoria_Produto> categorias = new ArrayList<Categoria_Produto>();
 
                     try {
@@ -137,10 +136,9 @@ public class CategoriasProdutosPessoaFisicaActivity extends AppCompatActivity {
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Toast.makeText(CategoriasProdutosPessoaFisicaActivity.this, "Ocorreu um erro no servidor", Toast.LENGTH_LONG).show();
+                        progress.dismiss();
                     }
-                } else {
-                    Toast.makeText(CategoriasProdutosPessoaFisicaActivity.this, "Ocorreu um erro no servidor", Toast.LENGTH_LONG).show();
-                }
             }else{
                 Toast.makeText(CategoriasProdutosPessoaFisicaActivity.this,"Verifique a sua conexão...",Toast.LENGTH_LONG).show();
             }

@@ -86,6 +86,7 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
                                     pessoa.setNome(object.getString("first_name"));
                                     pessoa.setSobrenome(object.getString("last_name"));
                                     pessoa.setEmail(object.getString("email"));
+                                    pessoa.setTelefone(" ");
                                     long id = object.getLong("id");
                                     pessoaFisica.setId_facebook(String.valueOf(id));
                                     JSONObject picture = new JSONObject(object.getString("picture"));
@@ -203,7 +204,6 @@ public class LoginPessoaFisicaActivity extends AppCompatActivity {
             super.onPostExecute(s);
             if(isConnected)
             {
-
                 try{
                     JSONObject object = new JSONObject(s);
                     object.remove("type");

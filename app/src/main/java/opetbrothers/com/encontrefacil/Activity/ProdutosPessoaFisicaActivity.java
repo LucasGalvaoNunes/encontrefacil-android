@@ -58,6 +58,7 @@ import opetbrothers.com.encontrefacil.Util.Util;
 public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements LocationListener{
 
     int idCategoria;
+    String nomeProdutoBusca = null;
     ArrayList<Produto> listProdutos = new ArrayList<>();
     Gson gson = new Gson();
 
@@ -69,6 +70,7 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
 
         Bundle extras = getIntent().getExtras();
         idCategoria = extras.getInt("idCategoria");
+        nomeProdutoBusca = extras.getString("nomeProduto");
 
         listaProdutos();
     }
@@ -224,7 +226,7 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
 
             case R.id.filtro_nenhum:
 
-                String listJ = Util.RecuperarUsuario("listaProdutosCategoria", ProdutosPessoaFisicaActivity.this);
+                String listJ = Util.RecuperarUsuario("listaProdutosFisica", ProdutosPessoaFisicaActivity.this);
 
                 try {
                     JSONObject object = new JSONObject(listJ);
@@ -265,15 +267,6 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
         return super.onOptionsItemSelected(item);
     }
 
-    private View.OnClickListener confirmaFiltroKN = new View.OnClickListener() {
-
-        public void onClick(View v) {
-
-
-
-        }
-    };
-
     public Location instanciaLocation(){
         LocationManager locationManager;
         String provider;
@@ -308,20 +301,15 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
             local.setEstado(addresses.get(0).getAdminArea());
             local.setCidade(addresses.get(0).getLocality());
 
-            new getProdutosbyCategoria().execute(local);
+            new getProdutos().execute(local);
 
         }catch (IOException e){
             e.printStackTrace();
             Toast.makeText(ProdutosPessoaFisicaActivity.this, "Ocorreu um erro no servidor. Tente novamente!", Toast.LENGTH_LONG).show();
-            LoginManager.getInstance().logOut();
-            Intent intent = new Intent(getApplicationContext(), LoginPessoaFisicaActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
         }
     }
 
-    public class getProdutosbyCategoria extends AsyncTask<Localizacao, Void, String>{
+    public class getProdutos extends AsyncTask<Localizacao, Void, String>{
 
         boolean isConnected = false;
         ProgressDialog progress;
@@ -355,8 +343,19 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
             try {
                 Gson gson = new Gson();
                 String cc =  gson.toJson(params[0]);
-                String result = HttpMetods.POST("Produto/BuscarPorCategoria/" + idCategoria, gson.toJson(params[0]));
-                return result;
+                if(nomeProdutoBusca != null && idCategoria == 0){
+                    String yy = "Produto/BuscarPorNome/" + nomeProdutoBusca.replace(" ", "_");
+                    String hh = gson.toJson(params[0]);
+                    String result = HttpMetods.POST("Produto/BuscarPorNome/" + nomeProdutoBusca.replace(" ", "_"), gson.toJson(params[0]));
+                    nomeProdutoBusca = null;
+                    return result;
+                }else {
+                    String uu = gson.toJson(params[0]);
+                    String result = HttpMetods.POST("Produto/BuscarPorCategoria/" + idCategoria, gson.toJson(params[0]));
+                    idCategoria = 0;
+                    return result;
+                }
+
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -368,22 +367,23 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
             super.onPostExecute(s);
 
             if(isConnected) {
-                if (s != null) {
-                    Util.SalvarDados("listaProdutosCategoria", s, ProdutosPessoaFisicaActivity.this);
+
                     try {
                         JSONObject object = new JSONObject(s);
-                        JSONArray listProdutosJson = object.getJSONArray("lista");
+                        if (object.getBoolean("ok")) {
 
+                            Util.SalvarDados("listaProdutosFisica", s, ProdutosPessoaFisicaActivity.this);
 
-                        for (int i = 0; i < listProdutosJson.length(); i++) {
-                            JSONObject objProduto = listProdutosJson.getJSONObject(i);
-                            objProduto.remove("type");
-                            Produto produto = gson.fromJson(objProduto.toString(), Produto.class);
+                            JSONArray listProdutosJson = object.getJSONArray("lista");
 
-                            listProdutos.add(produto);
-                        }
+                            for (int i = 0; i < listProdutosJson.length(); i++) {
+                                JSONObject objProduto = listProdutosJson.getJSONObject(i);
+                                objProduto.remove("type");
+                                Produto produto = gson.fromJson(objProduto.toString(), Produto.class);
 
-                        if (listProdutos.size() > 0) {
+                                listProdutos.add(produto);
+                            }
+
                             ListView listView = (ListView) findViewById(R.id.listViewProdutosPessoaFisica);
                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 //            @Override
@@ -400,17 +400,17 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
                             listView.setAdapter(produtosPessoaFisicaAdapter);
 
                             progress.dismiss();
-                        } else {
-                            Toast.makeText(ProdutosPessoaFisicaActivity.this, "Nenhum produto nessa categoria.", Toast.LENGTH_LONG).show();
+
+                        }else {
+                            progress.dismiss();
+                            Toast.makeText(ProdutosPessoaFisicaActivity.this, "Nenhum produto encontrado.", Toast.LENGTH_LONG).show();
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Toast.makeText(ProdutosPessoaFisicaActivity.this, "Ocorreu um erro no servidor.", Toast.LENGTH_LONG).show();
+                        progress.dismiss();
                     }
-
-                } else {
-                    Toast.makeText(ProdutosPessoaFisicaActivity.this, "Ocorreu um erro no servidor.", Toast.LENGTH_LONG).show();
-                }
             }else{
                 Toast.makeText(ProdutosPessoaFisicaActivity.this, "Verifique a sua conexão...", Toast.LENGTH_LONG).show();
             }

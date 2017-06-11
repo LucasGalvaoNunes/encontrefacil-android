@@ -39,7 +39,7 @@
             android:weightSum="1">
 
             <EditText
-                android:id="@+id/editText9"
+                android:id="@+id/editTNomeProduto"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:ems="10"
