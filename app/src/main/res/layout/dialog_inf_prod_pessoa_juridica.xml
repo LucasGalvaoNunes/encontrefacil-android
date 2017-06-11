@@ -22,37 +22,46 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnImpulsionar"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignEnd="@+id/imagemAtualizaProd"
-                android:layout_alignParentBottom="true"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
-                android:fontFamily="casual"
-                android:text="Impulsionar"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textSize="20sp" />
-
             <ImageView
                 android:id="@+id/imagemAtualizaProd"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/product"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_weight="1"
+                app:srcCompat="@drawable/product" />
 
         </RelativeLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="251dp"
+        android:layout_height="46dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <SeekBar
             android:id="@+id/seekBarExposicao"
-            android:layout_width="250dp"
+            style="@android:style/Widget.DeviceDefault.Light.SeekBar"
+            android:layout_width="200dp"
             android:layout_height="30dp"
-            android:layout_weight="0.29"
             android:max="10" />
 
+        <ImageButton
+            android:id="@+id/btnImpulsionar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignEnd="@+id/imagemAtualizaProd"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:backgroundTint="#00ff0000"
+            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
+            android:fontFamily="casual"
+            android:text="Impulsionar"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="20sp"
+            app:srcCompat="@drawable/impulse" />
     </LinearLayout>
 
     <EditText
@@ -100,27 +109,24 @@
         android:layout_height="45dp"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnSalvarAtualizacao"
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
-            android:fontFamily="casual"
-            android:text="Salvar"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="20sp" />
+            android:backgroundTint="#00ff0000"
+            android:textSize="20sp"
+            app:srcCompat="@drawable/salvar" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnExcluirAtualizacao"
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
-            android:fontFamily="casual"
-            android:text="Excluir"
+            android:backgroundTint="#00ff0000"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:srcCompat="@drawable/remove" />
 
     </LinearLayout>
 

@@ -10,51 +10,53 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="94dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.29"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_weight="0.29">
+        android:orientation="horizontal">
 
         <TextView
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="234dp"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:ems="10"
             android:layout_weight="1"
-            android:textAlignment="center"
+            android:ems="10"
             android:text="Dígite a distancia máxima dos produtos:"
-            android:textSize="18sp" />
+            android:textAlignment="center"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="234dp" />
 
     </RelativeLayout>
-
-    <EditText
-        android:id="@+id/editDistanciaMaxima"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="234dp"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:hint="Distância em Km"
-        android:textSize="18sp"
-        android:maxLength="10"/>
 
     <LinearLayout
         android:layout_width="250dp"
         android:layout_height="45dp"
         android:orientation="horizontal">
 
-        <Button
+        <EditText
+            android:id="@+id/editDistanciaMaxima"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Distância em Km"
+            android:maxLength="10"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="234dp" />
+
+        <ImageButton
             android:id="@+id/btConfirmaDistancia"
-            android:layout_width="250dp"
+            android:layout_width="10dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
+            android:backgroundTint="#00ff0000"
             android:fontFamily="casual"
             android:text="Confirma"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            app:srcCompat="?android:attr/textSelectHandleRight" />
 
     </LinearLayout>
 

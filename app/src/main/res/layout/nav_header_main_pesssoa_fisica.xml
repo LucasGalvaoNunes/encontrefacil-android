@@ -19,7 +19,7 @@
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+        app:srcCompat="@drawable/com_facebook_profile_picture_blank_portrait" />
 
     <TextView
         android:id="@+id/textViewNomePessoaFisicaLogada"
@@ -27,11 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageViewPerfilFisica"
         android:layout_centerHorizontal="true"
-        android:fontFamily="casual"
-        android:text=""
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="@android:color/background_dark"
-        android:textSize="30sp" />
+        android:text="teste"
+        android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+        android:textColor="@android:color/black"
+        android:textSize="25sp" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -45,9 +44,10 @@
         android:id="@+id/imageButtonSairPessoaFisica"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
         android:layout_above="@+id/textViewNomePessoaFisicaLogada"
         android:layout_alignEnd="@+id/imageViewPerfilFisica"
-        android:onClick="Sair"/>
+        android:backgroundTint="#00ff0000"
+        android:onClick="Sair"
+        app:srcCompat="@drawable/sair" />
 
 </RelativeLayout>

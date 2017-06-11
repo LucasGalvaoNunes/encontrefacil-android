@@ -17,18 +17,19 @@
         android:id="@+id/imageLojaMain"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        app:srcCompat="@drawable/shop" />
 
     <ImageButton
         android:id="@+id/imageButton4"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/textViewLojaNome"
+        android:layout_alignBottom="@+id/imageLojaMain"
         android:layout_alignEnd="@+id/imageLojaMain"
+        android:backgroundTint="#00ff0000"
         android:onClick="LogoffPessoaJuridica"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+        app:srcCompat="@drawable/sair" />
 
     <TextView
         android:id="@+id/textViewLojaNome"
@@ -36,11 +37,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageLojaMain"
         android:layout_centerHorizontal="true"
-        android:fontFamily="casual"
-        android:text="Oi Mundo!"
-        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:text="Test"
+        android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@android:color/background_dark"
-        android:textSize="20sp" />
+        android:textSize="25sp" />
 
     <ImageView
         android:id="@+id/imageView8"

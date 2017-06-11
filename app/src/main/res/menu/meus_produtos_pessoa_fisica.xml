@@ -4,33 +4,33 @@
 
     <item
         android:id="@+id/filtro_pessoaFisica"
-        android:icon="@drawable/ic_menu_gallery"
+        android:icon="@drawable/filter"
         android:title="@string/filtro_name"
         app:showAsAction="always">
         <menu>
             <item
                 android:id="@+id/filtro_PorKm"
-                android:icon="?android:attr/actionModePasteDrawable"
+                android:icon="@drawable/distance"
                 android:title="Por KM" />
             <item
                 android:id="@+id/filtro_PorPreco"
-                android:icon="?android:attr/actionModePasteDrawable"
+                android:icon="@drawable/price"
                 android:title="Preço" >
                 <menu>
                     <item
                         android:id="@+id/filtro_Preco_Crescente"
-                        android:icon="?android:attr/actionModePasteDrawable"
+                        android:icon="@drawable/more"
                         android:title="Crescente" />
                     <item
                         android:id="@+id/filtro_Preco_Decrescente"
-                        android:icon="?android:attr/actionModePasteDrawable"
+                        android:icon="@drawable/less"
                         android:title="Descrescente" />
                 </menu>
             </item>
 
             <item
                 android:id="@+id/filtro_nenhum"
-                android:icon="?android:attr/actionModePasteDrawable"
+                android:icon="@drawable/nofilter"
                 android:title="Nenhum"/>
         </menu>
     </item>

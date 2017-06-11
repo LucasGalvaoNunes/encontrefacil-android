@@ -12,52 +12,51 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="76dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="casual"
-            android:gravity="center"
-            android:text="Produtos em destaque!"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="51dp"
+        android:layout_height="100dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:gravity="center"
+            android:orientation="horizontal"
             android:weightSum="1">
 
             <EditText
                 android:id="@+id/editTNomeProduto"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
+                android:layout_weight="0.44"
                 android:ems="10"
-                android:fontFamily="casual"
                 android:hint="Buscar um produto..."
                 android:inputType="textPersonName"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textSize="20sp"
-                android:layout_weight="0.44" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="20sp" />
 
             <ImageButton
                 android:id="@+id/imageButton9"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:backgroundTint="#00ff0000"
                 android:onClick="BuscarProduto"
-                app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+                app:srcCompat="@android:drawable/ic_menu_search" />
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Produtos em destaque!"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <opetbrothers.com.encontrefacil.Util.SwipeToRefreshListView
@@ -65,6 +64,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
-        android:dividerHeight="15dp"/>
+        android:dividerHeight="15dp" />
 
 </LinearLayout>

@@ -10,15 +10,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="94dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.11"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_weight="0.29">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imagemLoja"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_weight="1"
@@ -28,52 +28,37 @@
 
     <TextView
         android:id="@+id/editNomeLoja"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="234dp"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Nome"
-        android:textSize="18sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="234dp" />
 
     <TextView
         android:id="@+id/editCategoriaLoja"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="234dp"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Categoria"
         android:inputType="textPersonName"
-        android:textSize="18sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="234dp" />
 
     <TextView
         android:id="@+id/editDistancia"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="234dp"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Distância"
         android:inputType="textPersonName"
-        android:textSize="18sp" />
-
-    <LinearLayout
-        android:layout_width="250dp"
-        android:layout_height="45dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btStartRota"
-            android:layout_width="250dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
-            android:fontFamily="casual"
-            android:text="Iniciar Rota"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="20sp" />
-
-    </LinearLayout>
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="234dp" />
 
 </LinearLayout>

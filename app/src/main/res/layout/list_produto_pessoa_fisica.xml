@@ -45,6 +45,7 @@
                     android:layout_height="wrap_content"
                     android:text="Nome Do Produto"
                     android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                     android:textSize="20sp" />
 
                 <TextView
@@ -53,7 +54,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="R$: 100,00"
-                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                     android:textSize="20sp" />
             </LinearLayout>
 

@@ -257,7 +257,7 @@ public class InfProdPessoaFisicaActivity extends AppCompatActivity implements On
                 return false;
             }
         });
-        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 
     @Override

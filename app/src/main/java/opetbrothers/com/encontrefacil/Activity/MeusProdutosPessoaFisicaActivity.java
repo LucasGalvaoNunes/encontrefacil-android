@@ -72,7 +72,7 @@ public class MeusProdutosPessoaFisicaActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.meus_produtos_pessoa_fisica,menu);
+        getMenuInflater().inflate(R.menu.menu_padrao,menu);
         return true;
     }
 

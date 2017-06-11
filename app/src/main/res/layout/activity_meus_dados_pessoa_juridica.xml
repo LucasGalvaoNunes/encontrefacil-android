@@ -17,10 +17,10 @@
             android:id="@+id/imageLojaAtualiza"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/shop" />
 
         <ImageButton
             android:id="@+id/imageButton8"

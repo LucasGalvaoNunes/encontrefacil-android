@@ -130,7 +130,7 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
                 //region POR KM
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(ProdutosPessoaFisicaActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_filtro_distancia_pessoa_fisica, null);
-                Button btConfirmaKM = (Button) mView.findViewById((R.id.btConfirmaDistancia));
+                ImageButton btConfirmaKM = (ImageButton) mView.findViewById((R.id.btConfirmaDistancia));
 
                 editDistancia = (EditText) mView.findViewById(R.id.editDistanciaMaxima);
 
@@ -267,55 +267,6 @@ public class ProdutosPessoaFisicaActivity extends AppCompatActivity implements L
 
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private View.OnClickListener confirmaFiltroKN = new View.OnClickListener() {
-
-        public void onClick(View v) {
-
-
-
-        }
-    };
-
-    public Location instanciaLocation(){
-        LocationManager locationManager;
-        String provider;
-
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        provider = locationManager.getBestProvider(new Criteria(), false);
-
-        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-            buildAlertMessageNoGps();
-        }
-        if(ActivityCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestLocationUpdates(provider, 400, 1, this);
-        }
-
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-        return location;
-    }
-
-
-
-
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(ProdutosPessoaFisicaActivity.this);
-        builder.setMessage("Seu GPS esta desativado, por favor ative!")
-                .setCancelable(false)
-                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
     }
 
     @Override

@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_meusProdutos"
-            android:icon="?android:attr/listChoiceIndicatorMultiple"
+            android:icon="@drawable/meusprodutos"
             android:title="Meus Produtos" />
         <item
             android:id="@+id/nav_meusDados"
-            android:icon="@android:drawable/sym_def_app_icon"
+            android:icon="@drawable/pessoajuridicauser"
             android:title="Meus Dados" />
     </group>
     <item android:title="Outros">
@@ -16,7 +16,7 @@
 
                 <item
                     android:id="@+id/nav_relatorio"
-                    android:icon="?android:attr/actionModePasteDrawable"
+                    android:icon="@drawable/pdf"
                     android:title="Relatorio" />
         </group>
     </item>

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Avaliações:"
         android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"
         android:textSize="25sp" />
 
     <TextView
@@ -20,12 +21,13 @@
         android:layout_height="wrap_content"
         android:text="Nota Média: 10"
         android:textAlignment="center"
-        android:textSize="25sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"
+        android:textSize="20sp" />
 
     <ListView
         android:id="@+id/listViewAvaliacao"
         android:layout_width="match_parent"
-        android:layout_height="224dp" />
+        android:layout_height="158dp" />
 
     <EditText
         android:id="@+id/editTextComentario"
@@ -43,7 +45,8 @@
 
     <ImageButton
         android:id="@+id/imageButtonSalvarNota"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:backgroundTint="#00ff0000"
         app:srcCompat="@drawable/salvar" />
 </LinearLayout>

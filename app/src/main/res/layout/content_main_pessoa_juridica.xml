@@ -19,10 +19,9 @@
             android:id="@+id/textViewTeste"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="casual"
             android:gravity="center"
             android:text="Produtos em destaque!"
-            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"
             android:textSize="20sp" />
     </LinearLayout>
 

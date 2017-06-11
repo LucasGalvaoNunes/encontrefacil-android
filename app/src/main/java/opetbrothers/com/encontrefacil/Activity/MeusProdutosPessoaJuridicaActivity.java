@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -253,7 +254,7 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
                         //endregion
 
                         //region ADICIONA OS METODOS DOS BOTOES
-                        Button btnAtualiza = (Button) mView.findViewById(R.id.btnSalvarAtualizacao);
+                        ImageButton btnAtualiza = (ImageButton) mView.findViewById(R.id.btnSalvarAtualizacao);
                         btnAtualiza.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                                 //region VALIDACAO
@@ -279,13 +280,13 @@ public class MeusProdutosPessoaJuridicaActivity extends AppCompatActivity {
                                 new Atualizar().execute(produtoRecuperado);
                             }
                         });
-                        Button btnExcluir = (Button) mView.findViewById(R.id.btnExcluirAtualizacao);
+                        ImageButton btnExcluir = (ImageButton) mView.findViewById(R.id.btnExcluirAtualizacao);
                         btnExcluir.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                                 new Excluir().execute(produtoRecuperado);
                             }
                         });
-                        Button btnImpulsionar = (Button) mView.findViewById(R.id.btnImpulsionar);
+                        ImageButton btnImpulsionar = (ImageButton) mView.findViewById(R.id.btnImpulsionar);
                         btnImpulsionar.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                                 Calendar cal = Calendar.getInstance();
