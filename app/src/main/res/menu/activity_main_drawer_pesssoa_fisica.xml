@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_meusProdutos"
+            android:icon="@drawable/meusprodutos"
+            android:title="Meus Produtos" />
+        <item
+            android:id="@+id/nav_meusDados"
+            android:icon="@drawable/pessoafisicauser"
+            android:title="Meus Dados" />
+    </group>
+
+    <item android:title="Produtos">
+        <menu>
+            <item
+                android:id="@+id/nav_categorias"
+                android:icon="@drawable/categorias"
+                android:title="Categorias" />
+            <item
+                android:id="@+id/nav_Lojas"
+                android:icon="@drawable/lojasperto"
+                android:title="Lojas Perto" />
+        </menu>
+    </item>
+
+</menu>

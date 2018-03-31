@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="opetbrothers.com.encontrefacil.Activity.InfProdPessoaFisicaActivity"
+    android:weightSum="1">
+
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapViewInfProd"
+        android:layout_width="match_parent"
+        android:layout_height="255dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="255dp">
+
+        <TextView
+            android:id="@+id/textViewLoja"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textViewNomeProduto"
+            android:text="Loja Vendedora"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textViewNomeProduto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Nome do Produto"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textViewDescricao"
+            android:layout_width="337dp"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textViewLoja"
+            android:layout_weight="0.65"
+            android:gravity="center"
+            android:lineSpacingExtra="12sp"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/btnChamaNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ff0000"
+            app:srcCompat="@drawable/navegar"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+</LinearLayout>

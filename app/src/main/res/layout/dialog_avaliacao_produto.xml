@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Avaliações:"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/mediaNota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nota Média: 10"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"
+        android:textSize="20sp" />
+
+    <ListView
+        android:id="@+id/listViewAvaliacao"
+        android:layout_width="match_parent"
+        android:layout_height="158dp" />
+
+    <EditText
+        android:id="@+id/editTextComentario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Comentario..."
+        android:inputType="textPersonName" />
+
+    <RatingBar
+        android:id="@+id/ratingBarAvaliacao"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:numStars="5" />
+
+    <ImageButton
+        android:id="@+id/imageButtonSalvarNota"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:backgroundTint="#00ff0000"
+        app:srcCompat="@drawable/salvar" />
+</LinearLayout>

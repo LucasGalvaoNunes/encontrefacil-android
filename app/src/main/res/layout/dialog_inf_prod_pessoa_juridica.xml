@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:orientation="vertical"
+        android:layout_weight="0.05"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.29"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imagemAtualizaProd"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/product" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="251dp"
+        android:layout_height="46dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <SeekBar
+            android:id="@+id/seekBarExposicao"
+            style="@android:style/Widget.DeviceDefault.Light.SeekBar"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:max="10" />
+
+        <ImageButton
+            android:id="@+id/btnImpulsionar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignEnd="@+id/imagemAtualizaProd"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:backgroundTint="#00ff0000"
+            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
+            android:fontFamily="casual"
+            android:text="Impulsionar"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="20sp"
+            app:srcCompat="@drawable/impulse" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editDialogNomeProd"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Nome..."
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="234dp" />
+
+    <LinearLayout
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editDialogDescricaoProd"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="234dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Descrição..."
+        android:inputType="textPersonName"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editDialogPrecoProd"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="234dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Preço..."
+        android:inputType="textPersonName"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnSalvarAtualizacao"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#00ff0000"
+            android:textSize="20sp"
+            app:srcCompat="@drawable/salvar" />
+
+        <ImageButton
+            android:id="@+id/btnExcluirAtualizacao"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#00ff0000"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="20sp"
+            app:srcCompat="@drawable/remove" />
+
+    </LinearLayout>
+
+</LinearLayout>

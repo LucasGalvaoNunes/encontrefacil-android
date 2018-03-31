@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/filtro_pessoaFisica"
+        android:icon="@drawable/filter"
+        android:title="@string/filtro_name"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/filtro_PorKm"
+                android:icon="@drawable/distance"
+                android:title="Por KM" />
+            <item
+                android:id="@+id/filtro_PorPreco"
+                android:icon="@drawable/price"
+                android:title="Preço" >
+                <menu>
+                    <item
+                        android:id="@+id/filtro_Preco_Crescente"
+                        android:icon="@drawable/more"
+                        android:title="Crescente" />
+                    <item
+                        android:id="@+id/filtro_Preco_Decrescente"
+                        android:icon="@drawable/less"
+                        android:title="Descrescente" />
+                </menu>
+            </item>
+
+            <item
+                android:id="@+id/filtro_nenhum"
+                android:icon="@drawable/nofilter"
+                android:title="Nenhum"/>
+        </menu>
+    </item>
+
+
+</menu>
