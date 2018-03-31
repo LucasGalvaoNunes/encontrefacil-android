@@ -42,4 +42,3 @@ Aplicativo para a busca e cadastro de produtos em lojas físicas, o aplicativo c
 ![Nav Bar Pessoa Juridica](https://bitbucket.org/repo/Loozjz5/images/167796647-Screenshot_20170612-124431.jpg)
 ![Cadastro Produto](https://bitbucket.org/repo/Loozjz5/images/1692055498-Screenshot_20170612-124350.jpg)
 ![Relatorio](https://bitbucket.org/repo/Loozjz5/images/3073292322-Screenshot_20170612-124425.jpg)
->>>>>>> developer
