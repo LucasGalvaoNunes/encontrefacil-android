@@ -26,7 +26,7 @@ Aplicativo para a busca e cadastro de produtos em lojas físicas, o aplicativo c
 * [Google Maps API](https://developers.google.com/maps/?hl=pt-br)
 * [Google Direction API](https://developers.google.com/maps/documentation/directions/?hl=pt-br)
 * [Google Cloud](cloud.google.com)
-* [Web Service em REST](https://bitbucket.org/opetbrothers/encontrefacilws)
+* [Web Service em REST](https://github.com/LucasGalvaoNunes/encontrefacil-webservice)
 
 ### Screen Shot's do aplicativo ###
 ![Tela Inicial](https://bitbucket.org/repo/Loozjz5/images/1296795479-Screenshot_20170612-124008.jpg)
